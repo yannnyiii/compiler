@@ -58,7 +58,7 @@ public class deal {
 		}
 		if(temchar=='=') {
 			test.flag++;
-			if(test.flag < test.length&&test.flag=='=') {
+			if(test.flag < test.length&&test.temString.charAt(test.flag)=='=') {
 				System.out.println("Eq");
 			}
 			else {
