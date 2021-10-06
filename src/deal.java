@@ -63,6 +63,7 @@ public class deal {
 			}
 			else {
 				System.out.println("Assign");
+				test.flag--;
 			}
 			return;
 		}
