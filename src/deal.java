@@ -72,9 +72,9 @@ public class deal {
 	}
 	public static void compilenum(char temchar){
 		test.flag++;
-		test.num = temchar-'0';
+		test.num = String.valueOf(temchar);
 		while((test.flag < test.length)&&Character.isDigit(test.temString.charAt(test.flag))) {
-			test.num = test.num*10 + test.temString.charAt(test.flag)-'0';
+			test.num = test.num+test.temString.charAt(test.flag);
 			test.flag++;
 		}
 		System.out.println("Number("+test.num+")");

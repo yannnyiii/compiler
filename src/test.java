@@ -1,7 +1,7 @@
 import java.util.*;
 public class test {
 	public static int flag = 0;
-	public static long num = 0;
+	public static String num ;
 	public static String temString;
 	public static int length;
 	public static boolean esc = false;
