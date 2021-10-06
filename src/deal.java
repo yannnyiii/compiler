@@ -9,7 +9,7 @@ public class deal {
 			compilelow(temchar);
 			return;
 		}
-		if(Character.isUpperCase(temchar)) {
+		if(Character.isUpperCase(temchar)||(temchar=='_')) {
 			compileup(temchar);
 			return;
 		}
