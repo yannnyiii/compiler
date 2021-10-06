@@ -53,7 +53,7 @@ public class deal {
 			System.out.println("Gt");
 			return;
 		}
-		if(temchar==' '||temchar=='\r'||temchar=='\n') {
+		if(temchar==' '||temchar=='\r'||temchar=='\n'||temchar=='\t') {
 			return;
 		}
 		if(temchar=='=') {
