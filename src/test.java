@@ -12,6 +12,9 @@ public class test {
 		while (compile1.hasNext()) {
 			line++;
 			temString = compile1.nextLine();
+			if(temString.length()==0||temString == null) {
+				return;
+			}
 			length = temString.length();
 			for(flag = 0;flag< length;flag++) {
 				if(esc) {
@@ -30,7 +33,7 @@ public class test {
 			return;
 		}
 		else {
-			return;
+			System.exit(1);
 		}
 //		deal.printword();
 	}
