@@ -18,7 +18,7 @@ public class test {
 			length = temString.length();
 			for(flag = 0;flag< length;flag++) {
 				if(esc) {
-					return;
+					System.exit(1);
 				}
 				deal.compile(temString.charAt(flag));
 //			System.out.println(deal.Wordlist.get(deal.Wordlist.size()-1).getName());
