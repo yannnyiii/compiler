@@ -6,4 +6,4 @@
 FROM openjdk:15
 WORKDIR /app/
 COPY ./src/* ./
-RUN javac *.java
+RUN javac test.java
