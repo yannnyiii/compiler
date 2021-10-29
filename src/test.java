@@ -30,7 +30,7 @@ public class test {
 			return;
 		}
 		else {
-			System.exit(1) ;
+			return;
 		}
 //		deal.printword();
 	}
