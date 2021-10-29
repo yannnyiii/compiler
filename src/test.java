@@ -25,6 +25,7 @@ public class test {
 			}
 		}
 		Gram.CompUnit();
+//		deal.printword();
 //		System.out.println(Gram.flag);
 		if(Gram.flag) {
 			System.out.println("define dso_local i32 @main(){");
@@ -35,6 +36,6 @@ public class test {
 		else {
 			System.exit(1);
 		}
-//		deal.printword();
+
 	}
 }

@@ -130,7 +130,7 @@ public class deal {
 				temWord = new Word("Number", String.valueOf(num) , test.line);
 				Wordlist.add(temWord);
 				lab1 = String.valueOf(num);
-				test.flag--;
+				test.flag--;test.flag--;
 				return;
 			}
 			else {
@@ -144,7 +144,7 @@ public class deal {
 				temWord = new Word("Number", String.valueOf(num) , test.line);
 				Wordlist.add(temWord);
 				lab1 = String.valueOf(num);
-				test.flag--;
+				test.flag--;test.flag--;
 				return;
 			}
 		}
