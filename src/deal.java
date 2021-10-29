@@ -1,5 +1,17 @@
 import java.util.*;
 public class deal {
+	public static List<Word> Wordlist = new ArrayList<Word>();
+	public static List<String> printtt= new ArrayList<String>();
+	public static String lab1 ;
+	public static Word temWord ;
+	public static void printword() {
+		Iterator<Word> it = Wordlist.iterator();
+		Word temp = temWord;
+		while (it.hasNext()) {
+			temp = it.next();
+			System.out.print(temp.getName());
+		}
+	}
 	public static void compile(char temchar) {
 		if(Character.isDigit(temchar)) {
 			compilenum(temchar);
@@ -14,43 +26,58 @@ public class deal {
 			return;
 		}
 		if(temchar==';') {
-			System.out.println("Semicolon");
+			temWord = new Word("Semicolon", ";", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar=='(') {
-			System.out.println("LPar");
+			temWord = new Word("LPar", "(", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar==')') {
-			System.out.println("RPar");
+			temWord = new Word("RPar", ")", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar=='{') {
-			System.out.println("LBrace");
+			temWord = new Word("LBrace", "{", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar=='}') {
-			System.out.println("RBrace");
+			temWord = new Word("RBrace", "}", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar=='+') {
-			System.out.println("Plus");
+			temWord = new Word("Plus", "+", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar=='*') {
-			System.out.println("Mult");
+			temWord = new Word("Mult", "*", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar=='/') {
-			System.out.println("Div");
+			temWord = new Word("Div", "}", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar=='<') {
-			System.out.println("Lt");
+			temWord = new Word("Lt", "<", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar=='>') {
-			System.out.println("Gt");
+			temWord = new Word("Gt", ">", test.line);
+			Wordlist.add(temWord);
+			return;
+		}
+		if(temchar==' ') {
+			temWord = new Word("Space", " ", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar==' '||temchar=='\r'||temchar=='\n'||temchar=='\t') {
@@ -59,10 +86,12 @@ public class deal {
 		if(temchar=='=') {
 			test.flag++;
 			if(test.flag < test.length&&test.temString.charAt(test.flag)=='=') {
-				System.out.println("Eq");
+				temWord = new Word("Eq", "==", test.line);
+				Wordlist.add(temWord);
 			}
 			else {
-				System.out.println("Assign");
+				temWord = new Word("=", "Assign", test.line);
+				Wordlist.add(temWord);
 				test.flag--;
 			}
 			return;
@@ -73,12 +102,60 @@ public class deal {
 	}
 	public static void compilenum(char temchar){
 		test.flag++;
+		if(test.flag >= test.length) {
+			temWord = new Word("Number", ""+temchar , test.line);
+			Wordlist.add(temWord);
+			lab1 = ""+temchar;
+			test.flag--;
+			return ;
+		}
+		if(temchar == '0') {
+			temchar = test.temString.charAt(test.flag);
+			if(temchar == 'x'||temchar == 'X') {
+				test.flag++;
+				long num = 0;
+				char now = test.temString.charAt(test.flag);
+				while((test.flag < test.length)&&(Character.isDigit(now)||((now>='a')&&(now<='f'))||((now>='A')&&(now<='F')))) {
+					now = test.temString.charAt(test.flag);
+					int k;
+					if(now>'9') {
+						k = now - 'a' + 10;
+					}
+					else {
+						k = now -'0';
+					}
+					num = num*16 + k;
+					test.flag++;
+				}
+				temWord = new Word("Number", String.valueOf(num) , test.line);
+				Wordlist.add(temWord);
+				lab1 = String.valueOf(num);
+				test.flag--;
+				return;
+			}
+			else {
+				long num = 0;
+				char now = test.temString.charAt(test.flag);
+				while((test.flag < test.length)&&(Character.isDigit(now))&&(now<'8')) {
+					now = test.temString.charAt(test.flag);
+					num = num*8 + now -'0';
+					test.flag++;
+				}
+				temWord = new Word("Number", String.valueOf(num) , test.line);
+				Wordlist.add(temWord);
+				lab1 = String.valueOf(num);
+				test.flag--;
+				return;
+			}
+		}
 		test.num = String.valueOf(temchar);
 		while((test.flag < test.length)&&Character.isDigit(test.temString.charAt(test.flag))) {
 			test.num = test.num+test.temString.charAt(test.flag);
 			test.flag++;
 		}
-		System.out.println("Number("+test.num+")");
+		temWord = new Word("Number", test.num , test.line);
+		Wordlist.add(temWord);
+		lab1 = String.valueOf(test.num);
 		test.flag--;
 	}
 	public static void compilelow(char temchar){
@@ -89,7 +166,8 @@ public class deal {
 			test.flag++;
 		}
 		if(!iskey(test.alphString))  {
-			System.out.println("Ident("+test.alphString+")");	
+			temWord = new Word("Ident", test.alphString, test.line); 
+			Wordlist.add(temWord);
 		}
 		test.flag--;
 	}
@@ -100,32 +178,40 @@ public class deal {
 			test.alphString = test.alphString+test.temString.charAt(test.flag);
 			test.flag++;
 		}
+		temWord = new Word("Ident", test.alphString, test.line);
+		Wordlist.add(temWord);
 		System.out.println("Ident("+test.alphString+")");	
 		test.flag--;
 	}
 	public static boolean iskey(String temString) {
 		if(temString.equals("if")) {
-			System.out.println("If");
+			temWord = new Word("if","if", test.line);
+			Wordlist.add(temWord);
 			return true;
 		}
 		if(temString.equals("else")) {
-			System.out.println("Else");
+			temWord = new Word("else","else", test.line);
+			Wordlist.add(temWord);
 			return true;
 		}
 		if(temString.equals("while")) {
-			System.out.println("While");
+			temWord = new Word("while","while", test.line);
+			Wordlist.add(temWord);
 			return true;
 		}
 		if(temString.equals("break")) {
-			System.out.println("Break");
+			temWord = new Word("break","break", test.line);
+			Wordlist.add(temWord);
 			return true;
 		}
 		if(temString.equals("continue")) {
-			System.out.println("Continue");
+			temWord = new Word("continue","continue", test.line);
+			Wordlist.add(temWord);
 			return true;
 		}
 		if(temString.equals("return")) {
-			System.out.println("Return");
+			temWord = new Word("return","return", test.line);
+			Wordlist.add(temWord);
 			return true;
 		}
 		return false;
