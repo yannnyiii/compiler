@@ -3,5 +3,5 @@
 image = { source = "dockerfile", path = ".", tag = "pascal-lex-example" }
 
 run = [
-  "cat $input | java test > $ir",
+  "java -cp dst/ test < $input",
 ]
