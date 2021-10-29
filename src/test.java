@@ -34,7 +34,7 @@ public class test {
 			return;
 		}
 		else {
-			System.exit(1);
+			System.exit(Integer.parseInt(deal.lab1));
 		}
 
 	}
