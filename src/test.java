@@ -10,16 +10,15 @@ public class test {
 	public static void main(String[] args) {
 		Scanner compile1 = new Scanner(System.in);
 		while (compile1.hasNextLine()) {
-			System.out.println(compile1.nextLine());
-		}
-		/*
-		while (compile1.hasNextLine()) {
 			line++;
 			temString = compile1.nextLine();
 //			if(temString.length()==0||temString == null) {
 //				return;
 //			}
 			length = temString.length();
+			if(temString.charAt(0)=='\r') {
+				continue;
+			}
 			for(flag = 0;flag< length;flag++) {
 				if(esc) {
 					System.exit(1);
@@ -43,7 +42,7 @@ public class test {
 		else {
 //			System.exit(Integer.parseInt(deal.lab1));
 			System.exit(8);
-		}*/
+		}
 
 	}
 }

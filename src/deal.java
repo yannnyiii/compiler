@@ -115,11 +115,11 @@ public class deal {
 			Wordlist.add(temWord);
 			return;
 		}
-		if(temchar==' ') {
-			temWord = new Word("Space", " ", test.line);
-			Wordlist.add(temWord);
-			return;
-		}
+//		if(temchar==' ') {
+//			temWord = new Word("Space", " ", test.line);System.out.println("ao");
+//			Wordlist.add(temWord);
+//			return;
+//		}
 		if(temchar==' '||temchar=='\r'||temchar=='\n'||temchar=='\t') {
 			return;
 		}

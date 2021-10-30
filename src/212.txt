@@ -1,11 +1,7 @@
-int/**/main() //{ // mian{
-{//dddddddddddddddddd
-//*
-//
-
-
-
-return/*123*/456
-;
-//**//*/
-}//
+int main() {
+    return ///// 123;
+    //
+    234/*;*/;
+    
+    
+}
