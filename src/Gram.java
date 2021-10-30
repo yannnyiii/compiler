@@ -3,7 +3,7 @@ public class Gram {
 	public static boolean flag = true;
 	public static int position = 0;
 	public static void testfalse(String s) {
-		System.out.println(s+"das");
+		//System.out.println(s+"das");
 	}
 	public static void CompUnit() {
 		FuncDef();

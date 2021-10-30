@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 public class deal {
 	public static List<Word> Wordlist = new ArrayList<Word>();
@@ -61,6 +64,42 @@ public class deal {
 			return;
 		}
 		if(temchar=='/') {
+			if((test.temString.charAt(test.flag+1)=='/')){
+				test.flag = test.length;
+				return;
+			}
+			if((test.temString.charAt(test.flag+1)=='*')) {
+				test.flag++;
+				for(;test.flag< test.length;test.flag++) {
+					if(test.esc) {
+						System.exit(1);
+					}
+					if((test.flag<test.length-1)&&(test.temString.charAt(test.flag)=='*')&&(test.temString.charAt(test.flag+1)=='/')) {
+						test.flag++;
+						return;
+					}
+				}
+				Scanner compile2 = new Scanner(System.in);
+				while (compile2.hasNext()) {
+					test.line++;
+					test.temString = compile2.nextLine();
+					if(test.temString.length()==0||test.temString == null) {
+						return;
+					}
+					test.length = test.temString.length();
+					for(;test.flag< test.length;test.flag++) {
+						if(test.esc) {
+							System.exit(1);
+						}
+						if((test.temString.charAt(test.flag)=='/')&&(test.temString.charAt(test.flag+1)=='*')) {
+							test.flag++;int a = 12;
+							return;
+						}
+					}
+				}
+				Gram.flag = false;
+				return;
+			}
 			temWord = new Word("Div", "}", test.line);
 			Wordlist.add(temWord);
 			return;

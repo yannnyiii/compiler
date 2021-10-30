@@ -24,6 +24,9 @@ public class test {
 //			System.out.println(deal.Wordlist.get(deal.Wordlist.size()-1).getName());
 			}
 		}
+		if(!Gram.flag) {
+			System.exit(8);
+		}
 		Gram.CompUnit();
 //		deal.printword();
 //		System.out.println(Gram.flag);
