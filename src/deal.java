@@ -64,11 +64,11 @@ public class deal {
 			return;
 		}
 		if(temchar=='/') {
-			if((test.temString.charAt(test.flag+1)=='/')){
+			if((test.flag<test.length-1)&&(test.temString.charAt(test.flag+1)=='/')){
 				test.flag = test.length;
 				return;
 			}
-			if((test.temString.charAt(test.flag+1)=='*')) {
+			if((test.flag<test.length-1)&&(test.temString.charAt(test.flag+1)=='*')) {
 				test.flag++;
 				for(;test.flag< test.length;test.flag++) {
 					if(test.esc) {

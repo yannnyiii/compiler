@@ -1,4 +1,8 @@
-int main() { // mian
-    return /* 
-	123 */ 234;
+int /**/main() //{ // mian{
+{
+    return /*
+	123 、
+*/ 
+234//;
+;/**/*/
 }
