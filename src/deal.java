@@ -115,7 +115,7 @@ public class deal {
 				test.flag++;
 				long num = 0;
 				char now = test.temString.charAt(test.flag);
-				while((test.flag < test.length)&&(Character.isDigit(now)||((now>='a')&&(now<='f'))||((now>='A')&&(now<='F')))) {
+				while((test.flag < test.length)&&(Character.isDigit(test.temString.charAt(test.flag))||((test.temString.charAt(test.flag)>='a')&&(test.temString.charAt(test.flag)<='f'))||((test.temString.charAt(test.flag)>='A')&&(test.temString.charAt(test.flag)<='F')))) {
 					now = test.temString.charAt(test.flag);
 					int k;
 					if(now>'9') {
@@ -130,13 +130,13 @@ public class deal {
 				temWord = new Word("Number", String.valueOf(num) , test.line);
 				Wordlist.add(temWord);
 				lab1 = String.valueOf(num);
-				test.flag--;test.flag--;
+				test.flag--;
 				return;
 			}
 			else {
 				long num = 0;
 				char now = test.temString.charAt(test.flag);
-				while((test.flag < test.length)&&(Character.isDigit(now))&&(now<'8')) {
+				while((test.flag < test.length)&&(Character.isDigit(test.temString.charAt(test.flag)))&&(test.temString.charAt(test.flag)<'8')) {
 					now = test.temString.charAt(test.flag);
 					num = num*8 + now -'0';
 					test.flag++;
@@ -144,7 +144,7 @@ public class deal {
 				temWord = new Word("Number", String.valueOf(num) , test.line);
 				Wordlist.add(temWord);
 				lab1 = String.valueOf(num);
-				test.flag--;test.flag--;
+				test.flag--;
 				return;
 			}
 		}
