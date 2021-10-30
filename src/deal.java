@@ -129,7 +129,7 @@ public class deal {
 				}
 				temWord = new Word("Number", String.valueOf(num) , test.line);
 				Wordlist.add(temWord);
-				lab1 = String.valueOf(num);
+				lab1 += String.valueOf(num);
 				test.flag--;
 				return;
 			}
@@ -143,7 +143,7 @@ public class deal {
 				}
 				temWord = new Word("Number", String.valueOf(num) , test.line);
 				Wordlist.add(temWord);
-				lab1 = String.valueOf(num);
+				lab1 += String.valueOf(num);
 				test.flag--;
 				return;
 			}
@@ -155,7 +155,7 @@ public class deal {
 		}
 		temWord = new Word("Number", test.num , test.line);
 		Wordlist.add(temWord);
-		lab1 = String.valueOf(test.num);
+		lab1 += String.valueOf(test.num);
 		test.flag--;
 	}
 	public static void compilelow(char temchar){
