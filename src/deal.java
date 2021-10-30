@@ -70,11 +70,13 @@ public class deal {
 			}
 			if((test.flag<test.length-1)&&(test.temString.charAt(test.flag+1)=='*')) {
 				test.flag++;
-				for(;test.flag< test.length;test.flag++) {
+				for(test.flag++;test.flag< test.length;test.flag++) {
 					if(test.esc) {
 						System.exit(1);
 					}
+					//System.out.println(test.temString.charAt(test.flag)+"?"+test.flag);
 					if((test.flag<test.length-1)&&(test.temString.charAt(test.flag)=='*')&&(test.temString.charAt(test.flag+1)=='/')) {
+						//System.out.println(test.temString.charAt(test.flag)+">"+test.flag);
 						test.flag++;
 						return;
 					}
