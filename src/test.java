@@ -10,6 +10,10 @@ public class test {
 	public static void main(String[] args) {
 		Scanner compile1 = new Scanner(System.in);
 		while (compile1.hasNextLine()) {
+			System.out.println(compile1.nextLine());
+		}
+		/*
+		while (compile1.hasNextLine()) {
 			line++;
 			temString = compile1.nextLine();
 //			if(temString.length()==0||temString == null) {
@@ -39,7 +43,7 @@ public class test {
 		else {
 //			System.exit(Integer.parseInt(deal.lab1));
 			System.exit(8);
-		}
+		}*/
 
 	}
 }
