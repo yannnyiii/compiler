@@ -91,8 +91,8 @@ public class deal {
 						if(test.esc) {
 							System.exit(1);
 						}
-						if((test.temString.charAt(test.flag)=='/')&&(test.temString.charAt(test.flag+1)=='*')) {
-							test.flag++;int a = 12;
+						if((test.flag<test.length-1)&&(test.temString.charAt(test.flag)=='*')&&(test.temString.charAt(test.flag+1)=='/')) {
+							test.flag++;
 							return;
 						}
 					}
