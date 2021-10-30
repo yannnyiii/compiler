@@ -118,8 +118,11 @@ public class deal {
 				while((test.flag < test.length)&&(Character.isDigit(test.temString.charAt(test.flag))||((test.temString.charAt(test.flag)>='a')&&(test.temString.charAt(test.flag)<='f'))||((test.temString.charAt(test.flag)>='A')&&(test.temString.charAt(test.flag)<='F')))) {
 					now = test.temString.charAt(test.flag);
 					int k;
-					if(now>'9') {
+					if(now>'9'&&now<'A') {
 						k = now - 'a' + 10;
+					}
+					else if(now>='A'){
+						k = now - 'A' + 10;
 					}
 					else {
 						k = now -'0';
@@ -129,7 +132,7 @@ public class deal {
 				}
 				temWord = new Word("Number", String.valueOf(num) , test.line);
 				Wordlist.add(temWord);
-				lab1 += String.valueOf(num);
+				lab1 = String.valueOf(num);
 				test.flag--;
 				return;
 			}
@@ -143,7 +146,7 @@ public class deal {
 				}
 				temWord = new Word("Number", String.valueOf(num) , test.line);
 				Wordlist.add(temWord);
-				lab1 += String.valueOf(num);
+				lab1 = String.valueOf(num);
 				test.flag--;
 				return;
 			}
@@ -155,7 +158,7 @@ public class deal {
 		}
 		temWord = new Word("Number", test.num , test.line);
 		Wordlist.add(temWord);
-		lab1 += String.valueOf(test.num);
+		lab1 = String.valueOf(test.num);
 		test.flag--;
 	}
 	public static void compilelow(char temchar){
