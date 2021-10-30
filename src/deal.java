@@ -87,7 +87,7 @@ public class deal {
 						return;
 					}
 					test.length = test.temString.length();
-					for(;test.flag< test.length;test.flag++) {
+					for(test.flag=0;test.flag< test.length;test.flag++) {
 						if(test.esc) {
 							System.exit(1);
 						}
