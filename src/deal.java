@@ -15,7 +15,7 @@ public class deal {
 			System.out.print(temp.getName());
 		}
 	}
-	public static void compile(char temchar) {
+	public static void compile(char temchar,Scanner temScanner) {
 		if(Character.isDigit(temchar)) {
 			compilenum(temchar);
 			return;
@@ -79,10 +79,9 @@ public class deal {
 						return;
 					}
 				}
-				Scanner compile2 = new Scanner(System.in);
-				while (compile2.hasNext()) {
+				while (temScanner.hasNext()) {
 					test.line++;
-					test.temString = compile2.nextLine();
+					test.temString = temScanner.nextLine();
 					if(test.temString.length()==0||test.temString == null) {
 						return;
 					}

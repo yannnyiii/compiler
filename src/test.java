@@ -20,7 +20,7 @@ public class test {
 				if(esc) {
 					System.exit(1);
 				}
-				deal.compile(temString.charAt(flag));
+				deal.compile(temString.charAt(flag),compile1);
 //			System.out.println(deal.Wordlist.get(deal.Wordlist.size()-1).getName());
 			}
 		}
