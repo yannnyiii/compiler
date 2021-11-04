@@ -34,12 +34,12 @@ public class deal {
 			return;
 		}
 		if(temchar=='(') {
-			temWord = new Word("LPar", "(", test.line);
+			temWord = new Word("Cal", "(", test.line);
 			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar==')') {
-			temWord = new Word("RPar", ")", test.line);
+			temWord = new Word("Cal", ")", test.line);
 			Wordlist.add(temWord);
 			return;
 		}
@@ -54,12 +54,17 @@ public class deal {
 			return;
 		}
 		if(temchar=='+') {
-			temWord = new Word("Plus", "+", test.line);
+			temWord = new Word("Cal", "+", test.line);
+			Wordlist.add(temWord);
+			return;
+		}
+		if(temchar=='-') {
+			temWord = new Word("Cal", "-", test.line);
 			Wordlist.add(temWord);
 			return;
 		}
 		if(temchar=='*') {
-			temWord = new Word("Mult", "*", test.line);
+			temWord = new Word("Cal", "*", test.line);
 			Wordlist.add(temWord);
 			return;
 		}
@@ -101,7 +106,7 @@ public class deal {
 				Gram.flag = false;
 				return;
 			}
-			temWord = new Word("Div", "}", test.line);
+			temWord = new Word("Cal", "/", test.line);
 			Wordlist.add(temWord);
 			return;
 		}
