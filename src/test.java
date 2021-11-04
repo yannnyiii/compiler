@@ -34,15 +34,13 @@ public class test {
 //		deal.printword();
 //		System.out.println(Gram.flag);
 		if(Gram.flag) {
+			System.out.println("define dso_local i32 @main(){");
 			try {
-				System.out.println((int)Calculator.calculate(Gram.expression));
+				System.out.println("    ret i32 " + (int)Calculator.calculate(Gram.expression));
 			} catch (Exception e) {
-				// TODO 自动生成的 catch 块
 				System.exit(8);
 			}
-			//System.out.println("define dso_local i32 @main(){");
-			//System.out.println("    ret i32 " + deal.lab1);
-			//System.out.println("}");
+			System.out.println("}");
 			return;
 		}
 		else {
