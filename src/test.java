@@ -12,9 +12,10 @@ public class test {
 		System.out.println("define dso_local i32 @main(){");
 		System.out.print("    ret i32 ");
 		while (compile1.hasNextLine()) {
-			alphString = compile1.nextLine();
-			if(alphString.charAt(0)=='r')
-			System.out.println(alphString);
+			alphString = compile1.next();
+			if(alphString.charAt(0)=='r') {
+				alphString = compile1.nextLine();
+				System.out.println(alphString);}
 		}
 //		while (compile1.hasNextLine()) {
 //			line++;
