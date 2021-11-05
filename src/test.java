@@ -9,6 +9,8 @@ public class test {
 	public static String alphString;
 	public static void main(String[] args) {
 		Scanner compile1 = new Scanner(System.in);
+		System.out.println("define dso_local i32 @main(){");
+		System.out.print("    ret i32 ");
 		while (compile1.hasNextLine()) {
 			alphString = compile1.nextLine();
 			if(alphString.charAt(0)=='r')
