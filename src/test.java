@@ -9,45 +9,37 @@ public class test {
 	public static String alphString;
 	public static void main(String[] args) {
 		Scanner compile1 = new Scanner(System.in);
-		System.out.println("define dso_local i32 @main(){");
-		System.out.print("    ret i32 ");
 		while (compile1.hasNextLine()) {
-			alphString = compile1.next();
-			if(alphString.charAt(0)=='r') {
-				alphString = compile1.nextLine();
-				System.out.println(alphString);}
+			line++;
+			temString = compile1.nextLine();
+			length = temString.length();
+			if(temString.charAt(0)=='\r') {
+				continue;
+			}
+			for(flag = 0;flag< length;flag++) {
+				if(esc) {
+					System.exit(1);
+				}
+				deal.compile(temString.charAt(flag),compile1);
+			}
 		}
-//		while (compile1.hasNextLine()) {
-//			line++;
-//			temString = compile1.nextLine();
-//			length = temString.length();
-//			if(temString.charAt(0)=='\r') {
-//				continue;
-//			}
-//			for(flag = 0;flag< length;flag++) {
-//				if(esc) {
-//					System.exit(1);
-//				}
-//				deal.compile(temString.charAt(flag),compile1);
-//			}
-//		}
-//		if(!Gram.flag) {
-//			System.exit(8);
-//		}
-//		Gram.CompUnit();
-//		if(Gram.flag) {
-//			System.out.println("define dso_local i32 @main(){");
-//			try {
-//				System.out.println("    ret i32 " + (int)Calculator.calculate(Gram.expression));
-//			} catch (Exception e) {
-//				System.exit(8);
-//			}
-//			System.out.println("}");
-//			return;
-//		}
-//		else {
-//			System.exit(8);
-//		}
+		if(!Gram.flag) {
+			System.exit(8);
+		}
+		Gram.CompUnit();
+		if(Gram.flag) {
+			System.out.println("define dso_local i32 @main(){");
+			try {
+				System.out.println("    ret i32 " + (int)Calculator.calculate(Gram.expression));
+			} catch (Exception e) {
+				System.exit(8);
+			}
+			System.out.println("}");
+			return;
+		}
+		else {
+			System.exit(8);
+		}
 
 	}
 }

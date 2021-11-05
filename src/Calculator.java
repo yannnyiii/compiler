@@ -13,6 +13,19 @@ public class Calculator {
 	public static float calculate(String formula) throws Exception
 	{
 		formula = ("0+(0+")+(formula)+")";
+		for(int i=1;i<formula.length();i++) {
+			if(formula.charAt(i)=='-'&&formula.charAt(i-1)=='+') {
+				formula = formula.substring(0, i-1)+formula.substring(i);
+				i--;
+			}
+		}
+		for(int i=1;i<formula.length();i++) {
+			if(formula.charAt(i)=='-'&&formula.charAt(i-1)=='-') {
+				formula = formula.substring(0, i-1)+"+"+formula.substring(i+1);
+				i--;
+			}
+		}
+		//System.out.println(formula);
 		formula += "#";
 		//operator.push('#');
 		for (int i = 0;formula.charAt(i)!='#';i ++)
@@ -74,7 +87,7 @@ public class Calculator {
 				case '-':return u - d;
 				case '*':return u * d;
 				case '%':return ((int)u)%((int)d);
-				case '/':return u / d;
+				case '/':return (int)u / (int)d;
 				default:return (float)0;
 			}
 		} catch (Exception e) {
@@ -106,6 +119,7 @@ public class Calculator {
 		if (currentCharacter != '(' && proCharacter != ')')
 		{
 			figure.push(Float.valueOf(figureString.toString()) * NP);	
+			//System.out.println(figure);
 			figureString.setLength(0);									
 			NP = 1;				
 			NPCanUse = false;		
@@ -132,6 +146,7 @@ public class Calculator {
 			}
 			else {u = figure.pop();}
 			figure.push(operate(operator.pop(),u,d));
+			//System.out.println(figure);
 		}}
 		if(tem) {
 			if (!operator.isEmpty() && getPriority(currentCharacter) < getPriority(operator.peek()) && getPriority(currentCharacter) + getPriority(operator.peek()) == 0)
@@ -142,7 +157,8 @@ public class Calculator {
 				else operator.pop();						
 			}
 			else
-				operator.push(currentCharacter);	
+				operator.push(currentCharacter);
+			//System.out.println(operator);
 		}
 	}
 	
