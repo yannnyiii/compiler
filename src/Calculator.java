@@ -53,6 +53,7 @@ public class Calculator {
 			case '+':return 1;
 			case '-':return 1;
 			case '*':return 2;
+			case '%':return 2;
 			case '/':return 2;
 			case '(':return 3;
 			case ')':return -3;
@@ -72,6 +73,7 @@ public class Calculator {
 				case '+':return u + d;
 				case '-':return u - d;
 				case '*':return u * d;
+				case '%':return ((int)u)%((int)d);
 				case '/':return u / d;
 				default:return (float)0;
 			}

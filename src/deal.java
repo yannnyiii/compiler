@@ -68,6 +68,11 @@ public class deal {
 			Wordlist.add(temWord);
 			return;
 		}
+		if(temchar=='%') {
+			temWord = new Word("Cal", "%", test.line);
+			Wordlist.add(temWord);
+			return;
+		}
 		if(temchar=='/') {
 			if((test.flag<test.length-1)&&(test.temString.charAt(test.flag+1)=='/')){
 				test.flag = test.length;

@@ -128,7 +128,7 @@ public class Gram {
 			position++;
 		}
 		UnaryExp();
-		while(deal.Wordlist.get(position).getName().equals("*")||deal.Wordlist.get(position).getName().equals("/")) {
+		while(deal.Wordlist.get(position).getName().equals("*")||deal.Wordlist.get(position).getName().equals("/")||deal.Wordlist.get(position).getName().equals("%")) {
 			expression+=deal.Wordlist.get(position).getName();
 			position++;
 			UnaryExp();
