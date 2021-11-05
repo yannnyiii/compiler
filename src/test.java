@@ -10,7 +10,9 @@ public class test {
 	public static void main(String[] args) {
 		Scanner compile1 = new Scanner(System.in);
 		while (compile1.hasNextLine()) {
-			System.out.println(compile1.nextLine());
+			alphString = compile1.nextLine();
+			if(alphString.charAt(0)=='r')
+			System.out.println(alphString);
 		}
 //		while (compile1.hasNextLine()) {
 //			line++;
