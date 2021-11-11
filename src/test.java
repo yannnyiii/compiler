@@ -1,4 +1,6 @@
 import java.util.*;
+
+import Tree_design.*;
 public class test {
 	public static int flag = 0;
 	public static int line = 0;
@@ -26,8 +28,10 @@ public class test {
 		if(!Gram.flag) {
 			System.exit(8);
 		}
-		Gram.CompUnit();
+		Base_tree temBase_tree = Gram.CompUnit();
+		temBase_tree.traverse_tree();
 		if(Gram.flag) {
+			
 			System.out.println("define dso_local i32 @main(){");
 			try {
 				System.out.println("    ret i32 " + (int)Calculator.calculate(Gram.expression));
