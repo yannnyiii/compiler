@@ -18,6 +18,6 @@ public class AddExp_tree extends Base_tree{
 		String rString = RBase.traverse_tree();
 		if(type.equals("+"))  cal.add("%x"+varinum+" = add i32 "+lString+", "+rString);
 		else cal.add("%x"+varinum+" = sub i32 "+lString+", "+rString);
-		return ("%x"+(AddExp_tree.varinum));
+		return ("%x"+(AddExp_tree.varinum++));
 	}
 }
