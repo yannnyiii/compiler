@@ -9,8 +9,10 @@ public class UnaryExp_tree extends Base_tree{
 		this.type = type;
 		this.LBase = l;
 	}
-	 public void traverse_tree() {
-			LBase.traverse_tree();
-			System.out.println(type);
+	 public String traverse_tree() {
+			String lString = LBase.traverse_tree();
+			if(type.equals("+"))  AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = add i32 0 "+", "+lString);
+			else AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = sub i32 0 "+", "+lString);
+			return ("%x"+(AddExp_tree.varinum++));
 		}
 }

@@ -1,4 +1,5 @@
-import com.sun.org.apache.xpath.internal.operations.Number;
+import java.util.ArrayList;
+import java.util.Stack;
 
 import Tree_design.*;
 public class Gram {
@@ -142,7 +143,7 @@ public class Gram {
 			expression+=deal.Wordlist.get(position).getName();
 			position++;
 			Base_tree R = UnaryExp();
-			L = new AddExp_tree(typeString, L, R);
+			L = new MulExp_tree(typeString, L, R);
 		}
 		return L;
 	}

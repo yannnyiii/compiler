@@ -7,7 +7,7 @@ public class Number_tree extends Base_tree{
 		super();
 		this.type = typeString;
 	}
-	 public void traverse_tree() {
-			System.out.println(type);
+	 public String traverse_tree() {
+			return type;
 		}
 }

@@ -29,12 +29,15 @@ public class test {
 			System.exit(8);
 		}
 		Base_tree temBase_tree = Gram.CompUnit();
-		temBase_tree.traverse_tree();
+		String aString = temBase_tree.traverse_tree();
 		if(Gram.flag) {
-			
 			System.out.println("define dso_local i32 @main(){");
 			try {
-				System.out.println("    ret i32 " + (int)Calculator.calculate(Gram.expression));
+				for(int i=0;i<AddExp_tree.cal.size();i++) {
+					System.out.println(AddExp_tree.cal.get(i));
+				}
+				System.out.println("    ret i32 " + "%x" + AddExp_tree.varinum);
+				//System.out.println("    ret i32 " + (int)Calculator.calculate(Gram.expression));
 			} catch (Exception e) {
 				System.exit(8);
 			}
