@@ -36,7 +36,7 @@ public class test {
 				for(int i=0;i<AddExp_tree.cal.size();i++) {
 					System.out.println(AddExp_tree.cal.get(i));
 				}
-				System.out.println("    ret i32 " + "%x" + AddExp_tree.varinum);
+				System.out.println("    ret i32 " + aString);
 				//System.out.println("    ret i32 " + (int)Calculator.calculate(Gram.expression));
 			} catch (Exception e) {
 				System.exit(8);
