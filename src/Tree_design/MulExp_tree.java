@@ -15,7 +15,7 @@ public class MulExp_tree extends Base_tree{
 			String rString = RBase.traverse_tree();
 			if(type.equals("*"))  AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = mul i32 "+lString+", "+rString);
 			else if(type.equals("/")) AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = sdiv i32 "+lString+", "+rString);
-			else AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = rem i32 "+lString+", "+rString);
+			else AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = srem i32 "+lString+", "+rString);
 			return ("%x"+(AddExp_tree.varinum++));
 	}
 }
