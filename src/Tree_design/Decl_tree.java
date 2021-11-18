@@ -21,10 +21,10 @@ public class Decl_tree extends Base_tree{
 					int j;
 					for(j = 0;j<Symbol_table.table.size();j++) {
 						if(Symbol_table.table.get(j).name.equals(def.name)&&!isconst) {							
-							AddExp_tree.cal.add("store i32 "+tempString+" ,i32"+Symbol_table.table.get(j).number);
-							AddExp_tree.cal.add("%x"+(AddExp_tree.varinum++)+" = load i32, i32"+Symbol_table.table.get(j).number);
+							AddExp_tree.cal.add("store i32 "+tempString+" ,i32* "+Symbol_table.table.get(j).var_pointer);
+							//AddExp_tree.cal.add("%x"+(AddExp_tree.varinum++)+" = load i32, i32"+Symbol_table.table.get(j).number);
 							Symbol_base tem = Symbol_table.table.get(j);
-							tem.number = " %x"+(AddExp_tree.varinum-1);
+							tem.number = "%x"+(AddExp_tree.varinum-1);
 							Symbol_table.table.set(j, tem);
 						}
 					}if(j>Symbol_table.table.size()) System.exit(8);
@@ -45,7 +45,7 @@ public class Decl_tree extends Base_tree{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				Symbol_table.table.add(new Symbol_base(def.name,Integer.toString(temf),true,"int"));
+				Symbol_table.table.add(new Symbol_base(def.name,Integer.toString(temf),true,"int",null));
 				//AddExp_tree.cal.add("%x"+temnum+" = "+"i32");
 			}
 //			for(int i = 0;i < var.size();i++) {
@@ -58,7 +58,7 @@ public class Decl_tree extends Base_tree{
 				Def def = var.get(i);
 				String temnum = "%x"+AddExp_tree.varinum++;
 				AddExp_tree.cal.add(temnum+" = "+"alloca i32");
-				Symbol_table.table.add(new Symbol_base(def.name,"* "+temnum,false,"int"));
+				Symbol_table.table.add(new Symbol_base(def.name,temnum,false,"int",temnum));
 			}
 //			for(int i = 0;i < var.size();i++) {
 //				Def def = var.get(i);

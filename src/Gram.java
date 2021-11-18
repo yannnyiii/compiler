@@ -217,7 +217,7 @@ public class Gram {
 			String typeString = deal.Wordlist.get(position).getName();
 			position++;position++;
 			Base_tree R = Exp();
-			Base_tree L = new Lvar_tree(typeString);
+			Base_tree L = new Lvar_tree(typeString,true);
 			Base_tree tem = new Stmt_tree("assign", L, R);
 			if(!deal.Wordlist.get(position).getName().equals(";")){
 				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
@@ -378,7 +378,7 @@ public class Gram {
 		}
 		if(deal.Wordlist.get(position).getType().equals("Ident")) {
 			expression+=deal.Wordlist.get(position).getName();
-			Base_tree L = new Lvar_tree(deal.Wordlist.get(position).getName());
+			Base_tree L = new Lvar_tree(deal.Wordlist.get(position).getName(),false);
 			position++;
 			return  L;
 		}
