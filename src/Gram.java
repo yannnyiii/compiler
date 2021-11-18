@@ -147,14 +147,15 @@ public class Gram {
 		while(deal.Wordlist.get(position).getName().equals(",")) {
 			position++;
 			if(deal.Wordlist.get(position+1).getName().equals("=")){
-				position++;
-				temDef = new Def(deal.Wordlist.get(position).getName(), AddExp());
+				name = deal.Wordlist.get(position).getName();
+				position+=2;
+				temDef = new Def(name, AddExp());
 			}
 			else {
+				position++;
 				temDef = new Def(deal.Wordlist.get(position).getName(), null);
 			}		
 			var.add(temDef);
-			position++;
 		}
 		if(!deal.Wordlist.get(position).getName().equals(";")){
 			testfalse(deal.Wordlist.get(position).getName()+"var2Decl");
@@ -320,7 +321,7 @@ public class Gram {
 			return L;
 		}
 		else {
-			testfalse(deal.Wordlist.get(position).getName()+" UnaryExp");
+			testfalse(deal.Wordlist.get(position).getName()+" UnaryExp"+deal.Wordlist.get(position+1).getName());
 			flag = false;
 			return null;
 		}
