@@ -12,10 +12,10 @@ public class test {
 	public static String alphString;
 	public static void main(String[] args) {
 		Scanner compile1 = new Scanner(System.in);
-		while (compile1.hasNextLine()) {
-			System.out.print(compile1.nextLine()+" ");
-		}
-		if(true) return;
+//		while (compile1.hasNextLine()) {
+//			System.out.print(compile1.nextLine()+" ");
+//		}
+//		if(true) return;
 		while (compile1.hasNextLine()) {
 			line++;
 			temString = compile1.nextLine();

@@ -243,12 +243,13 @@ public class Gram {
 		else {
 			Base_tree R = null;
 			Base_tree L = Exp();
-			Base_tree tem = new Stmt_tree("useless", L, R);
+			Base_tree tem = new Stmt_tree("exp", L, R);
 			if(!deal.Wordlist.get(position).getName().equals(";")){
 				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
 				flag = false;
 				return null;
 			}
+			position++;
 			return tem;
 		}
 	}
@@ -308,6 +309,9 @@ public class Gram {
 		while(deal.Wordlist.get(position).getName().equals(" ")) {
 			position++;
 		}
+		if(deal.Wordlist.get(position).getType().equals("Ident")&&deal.Wordlist.get(position+1).getName().equals("(")) {
+			return Funcdeal();
+		}
 		if(deal.Wordlist.get(position).getName().equals("(")||deal.Wordlist.get(position).getType().equals("Number")||deal.Wordlist.get(position).getType().equals("Ident")) {
 			return PrimaryExp();
 		}
@@ -320,6 +324,25 @@ public class Gram {
 			flag = false;
 			return null;
 		}
+	}
+	public static Base_tree Funcdeal(){
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		Funcdeal_tree tem = null;
+		if(deal.Wordlist.get(position).getName().equals("putint")) {
+			String name = deal.Wordlist.get(position).getName();
+			position+=2;
+			tem = new Funcdeal_tree(name, null, Exp());
+		}	
+		if(!deal.Wordlist.get(position).getName().equals(")")){
+			testfalse(deal.Wordlist.get(position).getName()+" funcdeal");
+			flag = false;
+			return null;
+		}
+		position++;
+		return tem;
 	}
 	public static String UnaryOp(){
 		if(!flag) return null;

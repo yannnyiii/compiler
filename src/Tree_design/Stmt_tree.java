@@ -34,6 +34,9 @@ public class Stmt_tree extends Base_tree{
 			 }
 			 if(j>Symbol_table.table.size()) System.exit(8);
 		 }
+		 else {
+			 LBase.traverse_tree();
+		 }
 		 return null;
 	}
 	public String traverse_first() {
