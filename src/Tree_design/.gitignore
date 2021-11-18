@@ -12,3 +12,11 @@
 /UnaryExp_tree.class
 /UnaryOp_tree.class
 /Base_tree.class
+/Stmt.class
+/Stmt_tree.class
+/Lvar_tree.class
+/Decl_tree.class
+/Def.class
+/Block_item.class
+/Blockitem_tree.class
+/Block_tree.class

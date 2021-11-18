@@ -1,5 +1,6 @@
 import java.util.*;
 
+import Symbol.Symbol_table;
 import Tree_design.*;
 public class test {
 	public static int flag = 0;
@@ -20,6 +21,7 @@ public class test {
 			}
 			for(flag = 0;flag< length;flag++) {
 				if(esc) {
+					//System.out.println(temString);
 					System.exit(1);
 				}
 				deal.compile(temString.charAt(flag),compile1);
@@ -29,14 +31,29 @@ public class test {
 			System.exit(8);
 		}
 		Base_tree temBase_tree = Gram.CompUnit();
-		String aString = temBase_tree.traverse_tree();
+		
+//		Block_tree aBlock_tree = (Block_tree) temBase_tree;
+//		Decl_tree aDecl_tree = (Decl_tree) aBlock_tree.item.get(0);
+//		Def aDef = aDecl_tree.var.get(0);
+//		AddExp_tree exp_tree = (AddExp_tree) aDef.exp;
+//		Number_tree nummNumber_tree = (Number_tree) exp_tree.RBase;
+//		//System.out.println(nummNumber_tree.type);
+//		//System.out.println(exp_tree.RBase.getClass());
+//		
+
+		String aString = temBase_tree.traverse_first();
+		aString = temBase_tree.traverse_tree();
+		String teeeString;
+//		for(int i = 0;i<Symbol_table.table.size();i++) {
+//			System.out.println(Symbol_table.table.get(i).number+" "+Symbol_table.table.get(i).name);
+//		}
 		if(Gram.flag) {
 			System.out.println("define dso_local i32 @main(){");
 			try {
 				for(int i=0;i<AddExp_tree.cal.size();i++) {
 					System.out.println(AddExp_tree.cal.get(i));
 				}
-				System.out.println("    ret i32 " + aString);
+				System.out.println("    ret i32 " + Stmt_tree.return_value);
 				//System.out.println("    ret i32 " + (int)Calculator.calculate(Gram.expression));
 			} catch (Exception e) {
 				System.exit(8);

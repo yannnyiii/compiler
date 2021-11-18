@@ -14,5 +14,8 @@ public class UnaryExp_tree extends Base_tree{
 			if(type.equals("+"))  AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = add i32 0 "+", "+lString);
 			else AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = sub i32 0 "+", "+lString);
 			return ("%x"+(AddExp_tree.varinum++));
-		}
+	}
+	public String traverse_first() {
+			return null;
+	}
 }

@@ -68,33 +68,189 @@ public class Gram {
 			return null;
 		}
 		position++;
-		Base_tree tempBase_tree = Stmt();
+		ArrayList<Base_tree> temitem = new ArrayList<Base_tree>();
+		while(!deal.Wordlist.get(position).getName().equals("}")) {
+			temitem.add(Blockitem());
+		}
 		if(!deal.Wordlist.get(position).getName().equals("}")){
 			testfalse(deal.Wordlist.get(position).getName());
 			flag = false;
 			return null;
 		}
+		Block_tree temBlock_tree = new Block_tree(null, temitem);
+		return temBlock_tree;
+	}
+	public static Base_tree Blockitem(){
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		Base_tree tempBase_tree = null;
+		if(deal.Wordlist.get(position).getName().equals(";")){
+			position++;
+			return null;
+		}
+		else if(deal.Wordlist.get(position).getName().equals("const")||deal.Wordlist.get(position).getName().equals("int")){
+			tempBase_tree = Decl();
+		}
+		else if(deal.Wordlist.get(position).getType().equals("Ident")||deal.Wordlist.get(position).getName().equals("return")||deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")||deal.Wordlist.get(position).getName().equals("(")){
+			tempBase_tree = Stmt();
+		}
+		else {
+			testfalse(deal.Wordlist.get(position).getName()+"blockitem");
+			flag = false;
+			return null;
+		}
 		return tempBase_tree;
+	}
+	public static Base_tree Decl(){
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		if(deal.Wordlist.get(position).getName().equals("const")){
+			position++;
+			return ConstDecl();
+		}
+		else if(deal.Wordlist.get(position).getName().equals("int")){
+			return VarDecl();
+		}
+		else {
+			testfalse(deal.Wordlist.get(position).getName()+"baseDecl");
+			flag = false;
+			return null;
+		}
+	}
+	private static Base_tree VarDecl() {
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		String typeString = Btype();
+		if(!deal.Wordlist.get(position).getType().equals("Ident")){
+			testfalse(deal.Wordlist.get(position).getName()+"varDecl");
+			flag = false;
+			return null;
+		}
+		String name = deal.Wordlist.get(position).getName();
+		position++;
+		Def temDef;
+		ArrayList<Def> var = new ArrayList<Def>();
+		if(deal.Wordlist.get(position).getName().equals("=")){
+			position++;
+			temDef = new Def(name, AddExp());
+		}
+		else {
+			temDef = new Def(name, null);
+		}		
+		var.add(temDef);
+		while(deal.Wordlist.get(position).getName().equals(",")) {
+			position++;
+			if(deal.Wordlist.get(position+1).getName().equals("=")){
+				position++;
+				temDef = new Def(deal.Wordlist.get(position).getName(), AddExp());
+			}
+			else {
+				temDef = new Def(deal.Wordlist.get(position).getName(), null);
+			}		
+			var.add(temDef);
+			position++;
+		}
+		if(!deal.Wordlist.get(position).getName().equals(";")){
+			testfalse(deal.Wordlist.get(position).getName()+"var2Decl");
+			flag = false;
+			return null;
+		}
+		position++;
+		return new Decl_tree(typeString,false,var);
+	}
+	public static Base_tree ConstDecl(){
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		String typeString = Btype();
+		if(!deal.Wordlist.get(position).getType().equals("Ident")){
+			testfalse(deal.Wordlist.get(position).getName()+"constDecl");
+			flag = false;
+			return null;
+		}
+		String name = deal.Wordlist.get(position).getName();
+		position++;
+		if(!deal.Wordlist.get(position).getName().equals("=")){
+			testfalse(deal.Wordlist.get(position).getName()+"Decl");
+			flag = false;
+			return null;
+		}
+		position++;
+		Def temDef = new Def(name, AddExp());
+		ArrayList<Def> var = new ArrayList<Def>();
+		var.add(temDef);
+		while(deal.Wordlist.get(position).getName().equals(",")) {
+			position++;
+			temDef = new Def(name, AddExp());
+			var.add(temDef);
+		}
+		if(!deal.Wordlist.get(position).getName().equals(";")){
+			testfalse(deal.Wordlist.get(position).getName()+"Decl");
+			flag = false;
+			return null;
+		}
+		position++;
+		return new Decl_tree(typeString,true,var);
+	}
+	private static String Btype() {
+		if(!deal.Wordlist.get(position).getName().equals("int")){
+			testfalse(deal.Wordlist.get(position).getName()+"Btype");
+			flag = false;
+			return null;
+		}
+		position++;
+		return "int";
 	}
 	public static Base_tree Stmt(){
 		if(!flag) return null;
 		while(deal.Wordlist.get(position).getName().equals(" ")) {
 			position++;
 		}
-		if(!deal.Wordlist.get(position).getName().equals("return")){
-			testfalse(deal.Wordlist.get(position).getName()+" stmt return");
-			flag = false;
-			return null;
+		if(deal.Wordlist.get(position).getType().equals("Ident")&&deal.Wordlist.get(position+1).getName().equals("=")){
+			String typeString = deal.Wordlist.get(position).getName();
+			position++;position++;
+			Base_tree R = Exp();
+			Base_tree L = new Lvar_tree(typeString);
+			Base_tree tem = new Stmt_tree("assign", L, R);
+			if(!deal.Wordlist.get(position).getName().equals(";")){
+				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
+				flag = false;
+				return null;
+			}
+			position++;
+			return tem;
 		}
-		position++;
-		Base_tree tempBase_tree = Exp();
-		if(!deal.Wordlist.get(position).getName().equals(";")){
-			testfalse(deal.Wordlist.get(position).getName() +" stmt;");
-			flag = false;
-			return null;
+		else if(deal.Wordlist.get(position).getName().equals("return")){
+			position++;
+			Base_tree R = null;
+			Base_tree L = Exp();
+			Base_tree tem = new Stmt_tree("return", L, R);
+			if(!deal.Wordlist.get(position).getName().equals(";")){
+				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
+				flag = false;
+				return null;
+			}
+			position++;
+			return tem;
 		}
-		position++;
-		return tempBase_tree;
+		else {
+			Base_tree R = null;
+			Base_tree L = Exp();
+			Base_tree tem = new Stmt_tree("useless", L, R);
+			if(!deal.Wordlist.get(position).getName().equals(";")){
+				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
+				flag = false;
+				return null;
+			}
+			return tem;
+		}
 	}
 	public static void number(){
 		if(!flag) return;
@@ -152,7 +308,7 @@ public class Gram {
 		while(deal.Wordlist.get(position).getName().equals(" ")) {
 			position++;
 		}
-		if(deal.Wordlist.get(position).getName().equals("(")||deal.Wordlist.get(position).getType().equals("Number")) {
+		if(deal.Wordlist.get(position).getName().equals("(")||deal.Wordlist.get(position).getType().equals("Number")||deal.Wordlist.get(position).getType().equals("Ident")) {
 			return PrimaryExp();
 		}
 		else if(deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")) {
@@ -194,6 +350,12 @@ public class Gram {
 		if(deal.Wordlist.get(position).getType().equals("Number")) {
 			expression+=deal.Wordlist.get(position).getName();
 			Base_tree L = new Number_tree(deal.Wordlist.get(position).getName());
+			position++;
+			return  L;
+		}
+		if(deal.Wordlist.get(position).getType().equals("Ident")) {
+			expression+=deal.Wordlist.get(position).getName();
+			Base_tree L = new Lvar_tree(deal.Wordlist.get(position).getName());
 			position++;
 			return  L;
 		}

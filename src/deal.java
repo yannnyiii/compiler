@@ -33,6 +33,11 @@ public class deal {
 			Wordlist.add(temWord);
 			return;
 		}
+		if(temchar==',') {
+			temWord = new Word(",", ",", test.line);
+			Wordlist.add(temWord);
+			return;
+		}
 		if(temchar=='(') {
 			temWord = new Word("Cal", "(", test.line);
 			Wordlist.add(temWord);
@@ -140,13 +145,13 @@ public class deal {
 				Wordlist.add(temWord);
 			}
 			else {
-				temWord = new Word("=", "Assign", test.line);
+				temWord = new Word("Assign","=", test.line);
 				Wordlist.add(temWord);
 				test.flag--;
 			}
 			return;
 		}
-		System.out.println("Err");
+		System.out.println("Err");//System.out.println(temchar);
 		test.esc = true;
 		return;
 	}
@@ -233,7 +238,7 @@ public class deal {
 		}
 		temWord = new Word("Ident", test.alphString, test.line);
 		Wordlist.add(temWord);
-		System.out.println("Ident("+test.alphString+")");	
+		//System.out.println("Ident("+test.alphString+")");	
 		test.flag--;
 	}
 	public static boolean iskey(String temString) {
@@ -264,6 +269,16 @@ public class deal {
 		}
 		if(temString.equals("return")) {
 			temWord = new Word("return","return", test.line);
+			Wordlist.add(temWord);
+			return true;
+		}
+		if(temString.equals("const")) {
+			temWord = new Word("var_type","const", test.line);
+			Wordlist.add(temWord);
+			return true;
+		}
+		if(temString.equals("int")) {
+			temWord = new Word("var_type","int", test.line);
 			Wordlist.add(temWord);
 			return true;
 		}

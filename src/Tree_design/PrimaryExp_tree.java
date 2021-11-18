@@ -13,5 +13,8 @@ public class PrimaryExp_tree extends Base_tree{
 			if(type.equals("+"))  System.out.println("%x"+AddExp_tree.varinum+" = add i32 0 "+", "+lString);
 			else System.out.println("%x"+AddExp_tree.varinum+" = sub i32 0 "+", "+lString);
 			return ("%x"+(AddExp_tree.varinum++));
-		}
+	}
+	public String traverse_first() {
+			return null;
+	}
 }

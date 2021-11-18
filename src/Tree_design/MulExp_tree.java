@@ -18,4 +18,7 @@ public class MulExp_tree extends Base_tree{
 			else AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = srem i32 "+lString+", "+rString);
 			return ("%x"+(AddExp_tree.varinum++));
 	}
+	public String traverse_first() {
+			return null;
+	}
 }

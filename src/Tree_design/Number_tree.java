@@ -10,4 +10,7 @@ public class Number_tree extends Base_tree{
 	 public String traverse_tree() {
 			return type;
 		}
+	 public String traverse_first() {
+			return null;
+		}
 }
