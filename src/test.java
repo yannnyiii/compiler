@@ -20,7 +20,7 @@ public class test {
 			line++;
 			temString = compile1.nextLine();
 			length = temString.length();
-			if(temString.charAt(0)=='\r') {
+			if(temString!=null&&temString.charAt(0)=='\r') {
 				continue;
 			}
 			for(flag = 0;flag< length;flag++) {
