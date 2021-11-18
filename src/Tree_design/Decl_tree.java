@@ -43,6 +43,7 @@ public class Decl_tree extends Base_tree{
 				try {
 					 temf = (int)Calculator.calculate(temnum);
 				} catch (Exception e) {
+					System.exit(7);
 					e.printStackTrace();
 				}
 				Symbol_table.table.add(new Symbol_base(def.name,Integer.toString(temf),true,"int",null));
