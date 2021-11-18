@@ -23,4 +23,10 @@ public class AddExp_tree extends Base_tree{
 	public String traverse_first() {
 		return null;
 	}
+	public String traverse_cal() {
+		int l =Integer.parseInt(LBase.traverse_cal());
+		int r =Integer.parseInt(RBase.traverse_cal());
+		if(type.equals("+"))  return ""+(l+r);
+		else return ""+(l-r);
+	}
 }

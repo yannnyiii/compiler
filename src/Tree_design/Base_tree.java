@@ -5,4 +5,7 @@ public abstract class Base_tree {
 	public void test(){
 		//System.out.println(getClass());
 	}
+	public String traverse_cal() {
+		return null;
+	};
 }

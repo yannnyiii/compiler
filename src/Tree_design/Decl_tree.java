@@ -38,15 +38,8 @@ public class Decl_tree extends Base_tree{
 		if(isconst) {
 			for(int i = 0;i < var.size();i++) {
 				Def def = var.get(i);
-				String temnum = def.exp.traverse_tree();
-				int temf = 0;
-				try {
-					 temf = (int)Calculator.calculate(temnum);
-				} catch (Exception e) {
-					System.exit(7);
-					e.printStackTrace();
-				}
-				Symbol_table.table.add(new Symbol_base(def.name,Integer.toString(temf),true,"int",null));
+				String temf = def.exp.traverse_cal();
+				Symbol_table.table.add(new Symbol_base(def.name,temf,true,"int",null));
 				//AddExp_tree.cal.add("%x"+temnum+" = "+"i32");
 			}
 //			for(int i = 0;i < var.size();i++) {

@@ -1,5 +1,7 @@
 package Tree_design;
 
+import Symbol.Symbol_table;
+
 public class Number_tree extends Base_tree{
 	 public String type;
 	 
@@ -13,4 +15,7 @@ public class Number_tree extends Base_tree{
 	 public String traverse_first() {
 			return null;
 		}
+		public String traverse_cal() {
+			return type;
+		}	 	 
 }

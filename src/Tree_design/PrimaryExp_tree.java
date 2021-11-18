@@ -17,4 +17,9 @@ public class PrimaryExp_tree extends Base_tree{
 	public String traverse_first() {
 			return null;
 	}
+	public String traverse_cal() {
+		int l =Integer.parseInt(LBase.traverse_cal());
+		if(type.equals("+"))  return ""+l;
+		else return ""+(-l);
+	}
 }
