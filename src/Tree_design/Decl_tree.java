@@ -21,8 +21,8 @@ public class Decl_tree extends Base_tree{
 					int j;
 					for(j = 0;j<Symbol_table.table.size();j++) {
 						if(Symbol_table.table.get(j).name.equals(def.name)&&!isconst) {							
-							AddExp_tree.cal.add("store i32 "+tempString+" ,i32* "+Symbol_table.table.get(j).number);
-							AddExp_tree.cal.add("%x"+(AddExp_tree.varinum++)+" = load i32, i32* "+Symbol_table.table.get(j).number);
+							AddExp_tree.cal.add("store i32 "+tempString+" ,i32"+Symbol_table.table.get(j).number);
+							AddExp_tree.cal.add("%x"+(AddExp_tree.varinum++)+" = load i32, i32"+Symbol_table.table.get(j).number);
 							Symbol_base tem = Symbol_table.table.get(j);
 							tem.number = "%x"+(AddExp_tree.varinum-1);
 							Symbol_table.table.set(j, tem);
@@ -57,8 +57,8 @@ public class Decl_tree extends Base_tree{
 			for(int i = 0;i < var.size();i++) {
 				Def def = var.get(i);
 				String temnum = "%x"+AddExp_tree.varinum++;
-				Symbol_table.table.add(new Symbol_base(def.name,temnum,false,"int"));
 				AddExp_tree.cal.add(temnum+" = "+"alloca i32");
+				Symbol_table.table.add(new Symbol_base(def.name,"* "+temnum,false,"int"));
 			}
 //			for(int i = 0;i < var.size();i++) {
 //				Def def = var.get(i);

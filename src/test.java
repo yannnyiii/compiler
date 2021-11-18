@@ -19,10 +19,10 @@ public class test {
 		while (compile1.hasNextLine()) {
 			line++;
 			temString = compile1.nextLine();
-			length = temString.length();
 			if(temString!=null&&temString.length()!=0&&temString.charAt(0)=='\r') {
 				continue;
 			}
+			length = temString.length();
 			for(flag = 0;flag< length;flag++) {
 				if(esc) {
 					//System.out.println(temString);
