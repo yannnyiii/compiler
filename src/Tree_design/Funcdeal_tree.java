@@ -17,7 +17,7 @@ public class Funcdeal_tree extends Base_tree{
 	public String traverse_tree() {
 		 if(name.equals("putint")) {
 			String temString = contain_Tree.traverse_tree();
-			AddExp_tree.cal.add(temString);
+			AddExp_tree.cal.add("call void @putint(i32 "+temString+")");
 			return temString;
 		 }
 		 return null;
