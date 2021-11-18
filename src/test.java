@@ -42,6 +42,7 @@ public class test {
 //			System.out.println(Symbol_table.table.get(i).number+" "+Symbol_table.table.get(i).name);
 //		}
 		if(Gram.flag) {
+			System.out.println("declare void @putint(i32)");
 			System.out.println("define dso_local i32 @main(){");
 			try {
 				for(int i=0;i<AddExp_tree.cal.size();i++) {
