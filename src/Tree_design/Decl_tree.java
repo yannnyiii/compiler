@@ -24,7 +24,7 @@ public class Decl_tree extends Base_tree{
 							AddExp_tree.cal.add("store i32 "+tempString+" ,i32"+Symbol_table.table.get(j).number);
 							AddExp_tree.cal.add("%x"+(AddExp_tree.varinum++)+" = load i32, i32"+Symbol_table.table.get(j).number);
 							Symbol_base tem = Symbol_table.table.get(j);
-							tem.number = "%x"+(AddExp_tree.varinum-1);
+							tem.number = " %x"+(AddExp_tree.varinum-1);
 							Symbol_table.table.set(j, tem);
 						}
 					}if(j>Symbol_table.table.size()) System.exit(8);
