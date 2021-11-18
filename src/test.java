@@ -13,6 +13,10 @@ public class test {
 	public static void main(String[] args) {
 		Scanner compile1 = new Scanner(System.in);
 		while (compile1.hasNextLine()) {
+			System.out.print(compile1.nextLine()+" ");
+		}
+		if(true) return;
+		while (compile1.hasNextLine()) {
 			line++;
 			temString = compile1.nextLine();
 			length = temString.length();
@@ -31,16 +35,6 @@ public class test {
 			System.exit(8);
 		}
 		Base_tree temBase_tree = Gram.CompUnit();
-		
-//		Block_tree aBlock_tree = (Block_tree) temBase_tree;
-//		Decl_tree aDecl_tree = (Decl_tree) aBlock_tree.item.get(0);
-//		Def aDef = aDecl_tree.var.get(0);
-//		AddExp_tree exp_tree = (AddExp_tree) aDef.exp;
-//		Number_tree nummNumber_tree = (Number_tree) exp_tree.RBase;
-//		//System.out.println(nummNumber_tree.type);
-//		//System.out.println(exp_tree.RBase.getClass());
-//		
-
 		String aString = temBase_tree.traverse_first();
 		aString = temBase_tree.traverse_tree();
 		String teeeString;
