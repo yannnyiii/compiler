@@ -7,7 +7,7 @@ public class Gram {
 	public static int position = 0;
 	public static String expression="";
 	public static void testfalse(String s) {
-		//System.out.println(s+" das");
+		System.out.println(s+" das");
 	}
 	public static Base_tree CompUnit() {
 		return FuncDef();
@@ -354,7 +354,7 @@ public class Gram {
 		}
 		if(deal.Wordlist.get(position).getName().equals("getch")) {
 			String name = deal.Wordlist.get(position).getName();
-			if((!deal.Wordlist.get(position+1).getName().equals("("))||(!deal.Wordlist.get(position+2).getName().equals("("))) {
+			if((!deal.Wordlist.get(position+1).getName().equals("("))||(!deal.Wordlist.get(position+2).getName().equals(")"))) {
 				testfalse(deal.Wordlist.get(position).getName()+" funcdealget");
 				flag = false;
 				return null;
