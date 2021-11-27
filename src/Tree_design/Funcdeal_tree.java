@@ -34,12 +34,12 @@ public class Funcdeal_tree extends Base_tree{
 		 if(name.equals("getint")) {
 			//int a = compile2.nextInt();
 
-			AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = call void @getint()");
+			AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = call i32 @getint()");
 			return ("%x"+(AddExp_tree.varinum++));
 		 }
 		 if(name.equals("getch")) {
 			char c = 0;
-			AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = call void @getch()");
+			AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = call i32 @getch()");
 			return ("%x"+(AddExp_tree.varinum++));
 		 }
 		 return null;
