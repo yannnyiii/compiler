@@ -228,6 +228,24 @@ public class Gram {
 			position++;
 			return tem;
 		}
+		else if(deal.Wordlist.get(position).getName().equals("if")){
+			if(!deal.Wordlist.get(position+1).getName().equals("(")){
+				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
+				flag = false;
+				return null;
+			}
+			position+=2;
+			Base_tree R = null;
+			Base_tree L = Exp();
+			Base_tree tem = new Stmt_tree("return", L, R);
+			if(!deal.Wordlist.get(position).getName().equals(";")){
+				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
+				flag = false;
+				return null;
+			}
+			position++;
+			return tem;
+		}
 		else if(deal.Wordlist.get(position).getName().equals("return")){
 			position++;
 			Base_tree R = null;

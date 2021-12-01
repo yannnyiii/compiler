@@ -14,6 +14,30 @@ public class Decl_tree extends Base_tree{
 		this.isconst = isconst;
 	}
 	 public String traverse_tree() {
+		 if(isconst) {
+				for(int i = 0;i < var.size();i++) {
+					Def def = var.get(i);
+					String temf = def.exp.traverse_cal();
+					Symbol_table.table.add(new Symbol_base(def.name,temf,true,"int",null));
+					//AddExp_tree.cal.add("%x"+temnum+" = "+"i32");
+				}
+//				for(int i = 0;i < var.size();i++) {
+//					Def def = var.get(i);
+//					def.exp.traverse_tree();
+//				}
+			}
+			else {
+				for(int i = 0;i < var.size();i++) {
+					Def def = var.get(i);
+					String temnum = "%x"+AddExp_tree.varinum++;
+					AddExp_tree.cal.add(temnum+" = "+"alloca i32");
+					Symbol_table.table.add(new Symbol_base(def.name,temnum,false,"int",temnum));
+				}
+//				for(int i = 0;i < var.size();i++) {
+//					Def def = var.get(i);
+//					def.exp.traverse_tree();
+//				}
+			}
 		 for(int i = 0;i < var.size();i++) {
 				Def def = var.get(i);
 				if(def.exp!=null) {

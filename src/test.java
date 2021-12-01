@@ -37,8 +37,8 @@ public class test {
 		}	
 		Base_tree temBase_tree = Gram.CompUnit();
 		//System.out.println("enter");
-		String aString = temBase_tree.traverse_first();
-		aString = temBase_tree.traverse_tree();
+		//aString = temBase_tree.traverse_first();
+		String aString = temBase_tree.traverse_tree();
 		String teeeString;
 //		for(int i = 0;i<Symbol_table.table.size();i++) {
 //			System.out.println(Symbol_table.table.get(i).number+" "+Symbol_table.table.get(i).name);
