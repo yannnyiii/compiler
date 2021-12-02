@@ -21,9 +21,8 @@ public class LOrExp_tree extends Base_tree{
 		 		temnextnum = AddExp_tree.varinum++;
 		 	}
 		 	if(LBase.getClass().toString().equals("class Tree_design.LOrExp_tree")) {
-		 		
 		 		LOrExp_tree tem_tree = (LOrExp_tree) LBase;
-		 		//tem_tree.nextnum = temnextnum;
+		 		tem_tree.nextnum = temnextnum;
 		 		tem_tree.ifnum = ifnum;
 		 		LBase = tem_tree;
 		 	}
@@ -43,7 +42,7 @@ public class LOrExp_tree extends Base_tree{
 			}
 			if(RBase!=null) {
 				LAndExp_tree tem_tree2 = (LAndExp_tree) RBase;
-				tem_tree2.originnum = temnextnum;
+				tem_tree2.originnum = nextnum;
 				RBase = tem_tree2;
 				AddExp_tree.cal.add("x"+temnextnum+":");
 			}
