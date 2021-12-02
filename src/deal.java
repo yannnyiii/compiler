@@ -138,17 +138,37 @@ public class deal {
 		if(temchar==' '||temchar=='\r'||temchar=='\n'||temchar=='\t') {
 			return;
 		}
+//		if(temchar=='=') {
+//			test.flag++;
+//			if(test.flag < test.length&&test.temString.charAt(test.flag)=='=') {
+//				temWord = new Word("Eq", "==", test.line);
+//				Wordlist.add(temWord);
+//			}
+//			else {
+//				temWord = new Word("Assign","=", test.line);
+//				Wordlist.add(temWord);
+//				test.flag--;
+//			}
+//			return;
+//		}
 		if(temchar=='=') {
-			test.flag++;
-			if(test.flag < test.length&&test.temString.charAt(test.flag)=='=') {
-				temWord = new Word("Eq", "==", test.line);
-				Wordlist.add(temWord);
-			}
-			else {
-				temWord = new Word("Assign","=", test.line);
-				Wordlist.add(temWord);
-				test.flag--;
-			}
+			temWord = new Word("Eq", "=", test.line);
+			Wordlist.add(temWord);
+			return;
+		}
+		if(temchar=='|') {
+			temWord = new Word("|", "|", test.line);
+			Wordlist.add(temWord);
+			return;
+		}
+		if(temchar=='&') {
+			temWord = new Word("&", "&", test.line);
+			Wordlist.add(temWord);
+			return;
+		}
+		if(temchar=='!') {
+			temWord = new Word("!", "!", test.line);
+			Wordlist.add(temWord);
 			return;
 		}
 		System.out.println("Err");//System.out.println(temchar);

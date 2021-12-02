@@ -32,6 +32,7 @@ public class Decl_tree extends Base_tree{
 					String temnum = "%x"+AddExp_tree.varinum++;
 					AddExp_tree.cal.add(temnum+" = "+"alloca i32");
 					Symbol_table.table.add(new Symbol_base(def.name,temnum,false,"int",temnum));
+					//System.out.println(def.name);
 				}
 //				for(int i = 0;i < var.size();i++) {
 //					Def def = var.get(i);

@@ -21,3 +21,7 @@
 /Blockitem_tree.class
 /Block_tree.class
 /Funcdeal_tree.class
+/LOrExp_tree.class
+/LAndExp_tree.class
+/EqExp_tree.class
+/RelExp_tree.class

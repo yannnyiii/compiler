@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.concurrent.locks.Condition;
 
 import Tree_design.*;
 public class Gram {
@@ -77,6 +78,7 @@ public class Gram {
 			flag = false;
 			return null;
 		}
+		position++;
 		Block_tree temBlock_tree = new Block_tree(null, temitem);
 		return temBlock_tree;
 	}
@@ -93,7 +95,7 @@ public class Gram {
 		else if(deal.Wordlist.get(position).getName().equals("const")||deal.Wordlist.get(position).getName().equals("int")){
 			tempBase_tree = Decl();
 		}
-		else if(deal.Wordlist.get(position).getType().equals("Ident")||deal.Wordlist.get(position).getName().equals("return")||deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")||deal.Wordlist.get(position).getName().equals("(")){
+		else if(deal.Wordlist.get(position).getType().equals("Ident")||deal.Wordlist.get(position).getName().equals("if")||deal.Wordlist.get(position).getName().equals("{")||deal.Wordlist.get(position).getName().equals("return")||deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")||deal.Wordlist.get(position).getName().equals("(")){
 			tempBase_tree = Stmt();
 		}
 		else {
@@ -152,8 +154,8 @@ public class Gram {
 				temDef = new Def(name, AddExp());
 			}
 			else {
-				position++;
 				temDef = new Def(deal.Wordlist.get(position).getName(), null);
+				position++;
 			}		
 			var.add(temDef);
 		}
@@ -235,15 +237,20 @@ public class Gram {
 				return null;
 			}
 			position+=2;
-			Base_tree R = null;
-			Base_tree L = Exp();
-			Base_tree tem = new Stmt_tree("return", L, R);
-			if(!deal.Wordlist.get(position).getName().equals(";")){
+			Base_tree In = Cond();
+			if(!deal.Wordlist.get(position).getName().equals(")")){
 				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
 				flag = false;
 				return null;
 			}
 			position++;
+			Base_tree L = Stmt();
+			Base_tree R = null;
+			if(deal.Wordlist.get(position).getName().equals("else")) {
+				position++;
+				R = Stmt();
+			}
+			Base_tree tem = new Stmt_tree("condition", L, R, In);
 			return tem;
 		}
 		else if(deal.Wordlist.get(position).getName().equals("return")){
@@ -259,6 +266,12 @@ public class Gram {
 			position++;
 			return tem;
 		}
+		else if(deal.Wordlist.get(position).getName().equals("{")){
+			Base_tree R = null;
+			Base_tree L = Block();
+			Base_tree tem = new Stmt_tree("block", L, R);
+			return tem;
+		}
 		else {
 			Base_tree R = null;
 			Base_tree L = Exp();
@@ -271,6 +284,85 @@ public class Gram {
 			position++;
 			return tem;
 		}
+	}
+	public static Base_tree Cond(){
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		return LorExp();
+	}
+	public static Base_tree LorExp(){
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		Base_tree L = LandExp();
+		Base_tree R = null;
+		while(deal.Wordlist.get(position).getName().equals("|")&&deal.Wordlist.get(position+1).getName().equals("|")) {
+			//System.out.print(deal.Wordlist.get(position).getName());
+			String typeString = deal.Wordlist.get(position).getName();
+			position+=2;
+			R = LandExp();
+			L = new LOrExp_tree("or", L, R);
+		}
+		L = new LOrExp_tree("or", L, null);
+		return L;
+	}
+	public static Base_tree LandExp(){
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		Base_tree L = EqExp();
+		Base_tree R = null;
+		while(deal.Wordlist.get(position).getName().equals("&")&&deal.Wordlist.get(position+1).getName().equals("&")) {
+			//System.out.print(deal.Wordlist.get(position).getName());
+			String typeString = deal.Wordlist.get(position).getName();
+			position+=2;
+			R = EqExp();
+			L = new LAndExp_tree("and", L, R);
+		}
+		L = new LAndExp_tree("and", L, null);
+		return L;
+	}
+	public static Base_tree EqExp(){
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		Base_tree L = RelExp();
+		Base_tree R= null;
+		while((deal.Wordlist.get(position).getName().equals("=")||(deal.Wordlist.get(position).getName().equals("!")))&&(deal.Wordlist.get(position+1).getName().equals("="))) {
+			//System.out.print(deal.Wordlist.get(position).getName());
+			String typeString = deal.Wordlist.get(position).getName()+'=';
+			position+=2;
+			R = RelExp();
+			L = new EqExp_tree(typeString, L, R);
+		}
+		if(R==null) L = new EqExp_tree("pass", L, null);
+		return L;
+	}
+	public static Base_tree RelExp(){
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		Base_tree L = AddExp();
+		while(deal.Wordlist.get(position).getName().equals("<")||deal.Wordlist.get(position).getName().equals(">")) {
+			String temstr = deal.Wordlist.get(position).getName();
+			position++;
+			if(deal.Wordlist.get(position).getName().equals("=")) {
+				temstr += '=';
+				position++;
+			}
+			//System.out.print(deal.Wordlist.get(position).getName());
+			String typeString = deal.Wordlist.get(position).getName();
+			//position++;
+			Base_tree R = AddExp();
+			L = new RelExp_tree(temstr, L, R);
+		}
+		return L;
 	}
 	public static void number(){
 		if(!flag) return;
