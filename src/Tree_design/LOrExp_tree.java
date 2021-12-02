@@ -34,7 +34,13 @@ public class LOrExp_tree extends Base_tree{
 		 		LBase = tem_tree;
 		 	}
 			String lString = LBase.traverse_tree();
-			if(temnextnum!=0) AddExp_tree.cal.add("br i1 "+lString+", label "+"%x"+ifnum+", label "+"%x"+temnextnum);	
+			if(temnextnum!=0) {
+				if(Base_tree.ifexp(LBase)) {
+					AddExp_tree.cal.add("%y"+LAndExp_tree.ynum +" = icmp ne i32 "+lString+", 0");	
+					lString = "%y"+LAndExp_tree.ynum++;
+				}
+				AddExp_tree.cal.add("br i1 "+lString+", label "+"%x"+ifnum+", label "+"%x"+temnextnum);	
+			}
 			if(RBase!=null) {
 				LAndExp_tree tem_tree2 = (LAndExp_tree) RBase;
 				tem_tree2.originnum = temnextnum;

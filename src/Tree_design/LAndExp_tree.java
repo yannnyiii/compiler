@@ -7,6 +7,7 @@ public class LAndExp_tree extends Base_tree{
 	 public String ifnum = null;
 	 public int originnum = 0;
 	 public int nextnum = 0;
+	 public static int ynum = 0;
 	 public LAndExp_tree(String type,Base_tree LBase ,Base_tree RBase) {
 		super();
 		this.type = type;
@@ -24,8 +25,14 @@ public class LAndExp_tree extends Base_tree{
 		 		tem_tree.originnum = originnum;
 		 		LBase = tem_tree;
 		 	}
-			String lString = LBase.traverse_tree();
-			if(temnextnum!=0) AddExp_tree.cal.add("br i1 "+lString+", label "+"%x"+temnextnum+", label "+"%x"+originnum);	
+			String lString = LBase.traverse_tree();	
+			if(temnextnum!=0) {
+				if(Base_tree.ifexp(LBase)) {
+					AddExp_tree.cal.add("%y"+ynum++ +" = icmp ne i32 "+lString+", 0");	
+					lString = "%y"+LAndExp_tree.ynum++;
+				}
+				AddExp_tree.cal.add("br i1 "+lString+", label "+"%x"+temnextnum+", label "+"%x"+originnum);	
+			}
 			if(RBase!=null) {
 				EqExp_tree tem_tree2 = (EqExp_tree) RBase;
 				tem_tree2.originnum = originnum;

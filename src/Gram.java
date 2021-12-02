@@ -340,7 +340,7 @@ public class Gram {
 			R = RelExp();
 			L = new EqExp_tree(typeString, L, R);
 		}
-		if(R==null) L = new EqExp_tree("pass", L, null);
+		L = new EqExp_tree("pass", L, null);
 		return L;
 	}
 	public static Base_tree RelExp(){
@@ -426,7 +426,7 @@ public class Gram {
 		if(deal.Wordlist.get(position).getName().equals("(")||deal.Wordlist.get(position).getType().equals("Number")||deal.Wordlist.get(position).getType().equals("Ident")) {
 			return PrimaryExp();
 		}
-		else if(deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")) {
+		else if(deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")||deal.Wordlist.get(position).getName().equals("!")) {
 			Base_tree L = new UnaryExp_tree(UnaryOp(),UnaryExp());
 			return L;
 		}
@@ -494,6 +494,11 @@ public class Gram {
 			expression+=deal.Wordlist.get(position).getName();
 			position++;
 			return "-";
+		}
+		else if(deal.Wordlist.get(position).getName().equals("!")) {
+			//expression+=deal.Wordlist.get(position).getName();
+			position++;
+			return "!";
 		}
 		else {
 			testfalse(deal.Wordlist.get(position).getName()+" UnaryOp");
