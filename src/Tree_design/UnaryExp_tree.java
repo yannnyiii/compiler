@@ -15,7 +15,7 @@ public class UnaryExp_tree extends Base_tree{
 			else if(type.equals("-"))AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = sub i32 0 "+", "+lString);
 			else{
 				AddExp_tree.cal.add("%x"+AddExp_tree.varinum+++" = icmp eq i32 "+lString+" , 0");
-				AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = zext i1 %x"+(AddExp_tree.varinum-2)+" to i32");
+				AddExp_tree.cal.add("%x"+AddExp_tree.varinum+" = zext i1 %x"+(AddExp_tree.varinum-1)+" to i32");
 			}
 			return ("%x"+(AddExp_tree.varinum++));
 	}
