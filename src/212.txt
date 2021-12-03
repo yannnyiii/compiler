@@ -1,9 +1,8 @@
-int main() {     
-int a = 10;     
-{         int a = 10;         int b = 20;         putint(b);         
-{ int a = 10; }     
-}     
-{ putint(a); 
-}     
-int a = 20;     putint(a);     return 0;
-} 
+int a = 6;
+int b = 5 + 1;
+int main() {
+    int c = b;
+    int b = 8;
+    putint(b + c);
+    return 0;
+}

@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.concurrent.locks.Condition;
 
+import Symbol.Symbol_base;
+import Symbol.Symbol_table;
 import Tree_design.*;
 public class Gram {
 	public static boolean flag = true;
@@ -11,6 +13,65 @@ public class Gram {
 		System.out.println(s+" das");
 	}
 	public static Base_tree CompUnit() {
+		if(!flag) return null;
+		while(deal.Wordlist.get(position).getName().equals(" ")) {
+			position++;
+		}
+		while(deal.Wordlist.get(position).getName().equals("const")||deal.Wordlist.get(position).getName().equals("int")&&!deal.Wordlist.get(position+1).getName().equals("main")) {
+			if(deal.Wordlist.get(position).getName().equals("const")){
+				position+=1;
+				Base_tree consTree = ConstDecl();
+				consTree.traverse_tree();
+			}
+			else {
+				String typeString = Btype();
+				if(!deal.Wordlist.get(position).getType().equals("Ident")){
+					testfalse(deal.Wordlist.get(position).getName()+"varDecl");
+					flag = false;
+					return null;
+				}
+				String name = deal.Wordlist.get(position).getName();
+				position++;
+				Def temDef;
+				Symbol_base temBase;
+				ArrayList<Def> var = new ArrayList<Def>();
+				if(deal.Wordlist.get(position).getName().equals("=")){
+					position++;
+					Base_tree addBase_tree = Exp();
+					String temString = addBase_tree.traverse_cal();
+					Symbol_table.table.add(new Symbol_base(name, temString, false, "int", "@"+name, 0));
+					System.out.println("@"+name+" = dso_local global i32 "+temString);
+				}
+				else {
+					Symbol_table.table.add(new Symbol_base(name,"0", false, "int", "@"+name, 0));
+					System.out.println("@"+name+" = dso_local global i32 "+0);
+				}		
+				while(deal.Wordlist.get(position).getName().equals(",")) {
+					position++;
+					name = deal.Wordlist.get(position).getName();
+					if(deal.Wordlist.get(position+1).getName().equals("=")){
+						position+=2;
+						Base_tree addBase_tree = AddExp();
+						String temString = addBase_tree.traverse_cal();
+						Symbol_table.table.add(new Symbol_base(name, temString, false, "int", "@"+name, 0));
+						System.out.println("@"+name+" = dso_local global i32 "+temString);
+					}
+					else {
+						position++;
+						Symbol_table.table.add(new Symbol_base(name,"0", false, "int", "@"+name, 0));
+						System.out.println("@"+name+" = dso_local global i32 "+0);
+						
+					}		
+				}
+				if(!deal.Wordlist.get(position).getName().equals(";")){
+					testfalse(deal.Wordlist.get(position).getName()+"var2Decl");
+					flag = false;
+					return null;
+				}
+				position++;
+			}
+		}
+		Symbol_table.nowdiv++;
 		return FuncDef();
 	}
 	public static Base_tree FuncDef(){
@@ -210,7 +271,7 @@ public class Gram {
 		position++;
 		return new Decl_tree(typeString,true,var);
 	}
-	private static String Btype() {
+	public static String Btype() {
 		if(!deal.Wordlist.get(position).getName().equals("int")){
 			testfalse(deal.Wordlist.get(position).getName()+"Btype");
 			flag = false;
