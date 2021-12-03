@@ -32,7 +32,7 @@ public class Stmt_tree extends Base_tree{
 			 String nameString = LBase.traverse_tree();
 			 nameString = ((Lvar_tree)LBase).varname;
 			 int j;
-			 for(j = 0;j<Symbol_table.table.size();j++) {
+			 for(j = Symbol_table.table.size()-1;j>=0;j--) {
 				 if(Symbol_table.table.get(j).name.equals(nameString)) {
 					 	if(Symbol_table.table.get(j).isconst) {
 					 		System.exit(8);
@@ -42,6 +42,7 @@ public class Stmt_tree extends Base_tree{
 						Symbol_base tem = Symbol_table.table.get(j);
 						tem.number = "%x"+(AddExp_tree.varinum-1);
 						Symbol_table.table.set(j, tem);
+						return null;
 				 }
 			 }
 			 if(j>Symbol_table.table.size()) System.exit(8);

@@ -191,11 +191,19 @@ public class Gram {
 		var.add(temDef);
 		while(deal.Wordlist.get(position).getName().equals(",")) {
 			position++;
+			name = deal.Wordlist.get(position).getName();
+			position++;
+			if(!deal.Wordlist.get(position).getName().equals("=")){
+				testfalse(deal.Wordlist.get(position).getName()+"Decl"+deal.Wordlist.get(position+1).getName());
+				flag = false;
+				return null;
+			}
+			position++;
 			temDef = new Def(name, AddExp());
 			var.add(temDef);
 		}
 		if(!deal.Wordlist.get(position).getName().equals(";")){
-			testfalse(deal.Wordlist.get(position).getName()+"Decl");
+			testfalse(deal.Wordlist.get(position).getName()+"Decl"+deal.Wordlist.get(position+1).getName()+deal.Wordlist.get(position+2).getName()+deal.Wordlist.get(position+3).getName());
 			flag = false;
 			return null;
 		}

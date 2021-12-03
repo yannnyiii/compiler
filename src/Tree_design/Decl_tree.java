@@ -18,7 +18,7 @@ public class Decl_tree extends Base_tree{
 				for(int i = 0;i < var.size();i++) {
 					Def def = var.get(i);
 					String temf = def.exp.traverse_cal();
-					Symbol_table.table.add(new Symbol_base(def.name,temf,true,"int",null));
+					Symbol_table.table.add(new Symbol_base(def.name,temf,true,"int",null,Symbol_table.nowdiv));
 					//AddExp_tree.cal.add("%x"+temnum+" = "+"i32");
 				}
 //				for(int i = 0;i < var.size();i++) {
@@ -31,60 +31,54 @@ public class Decl_tree extends Base_tree{
 					Def def = var.get(i);
 					String temnum = "%x"+AddExp_tree.varinum++;
 					AddExp_tree.cal.add(temnum+" = "+"alloca i32");
-					Symbol_table.table.add(new Symbol_base(def.name,temnum,false,"int",temnum));
+					Symbol_table.table.add(new Symbol_base(def.name,temnum,false,"int",temnum,Symbol_table.nowdiv));
 					//System.out.println(def.name);
 				}
 //				for(int i = 0;i < var.size();i++) {
 //					Def def = var.get(i);
 //					def.exp.traverse_tree();
 //				}
-			}
-		 for(int i = 0;i < var.size();i++) {
+//			}
+		 	for(int i = 0;i < var.size();i++) {
 				Def def = var.get(i);
 				if(def.exp!=null) {
 					String tempString = def.exp.traverse_tree();
 					int j;
-					for(j = 0;j<Symbol_table.table.size();j++) {
+					for(j = Symbol_table.table.size()-1;j>=0;j--) {
 						if(Symbol_table.table.get(j).name.equals(def.name)&&!isconst) {							
 							AddExp_tree.cal.add("store i32 "+tempString+" ,i32* "+Symbol_table.table.get(j).var_pointer);
-							//AddExp_tree.cal.add("%x"+(AddExp_tree.varinum++)+" = load i32, i32"+Symbol_table.table.get(j).number);
 							Symbol_base tem = Symbol_table.table.get(j);
 							tem.number = "%x"+(AddExp_tree.varinum-1);
 							Symbol_table.table.set(j, tem);
+							return null;
 						}
-					}if(j>Symbol_table.table.size()) System.exit(8);
-					//AddExp_tree.cal.add(temnum+" = "+"alloca i32");
+					}if(j<0) {System.out.println("decltree"+def.exp.traverse_cal());System.exit(8);}
 				}
+		 	}
 		 }
-		 return null;
+		 	return null;
 	}
+//	 public String traverse_first() {
+//		 test();
+//		if(isconst) {
+//			for(int i = 0;i < var.size();i++) {
+//				Def def = var.get(i);
+//				String temf = def.exp.traverse_cal();
+//				Symbol_table.table.add(new Symbol_base(def.name,temf,true,"int",null));
+//				//AddExp_tree.cal.add("%x"+temnum+" = "+"i32");
+//			}
+//		}
+//		else {
+//			for(int i = 0;i < var.size();i++) {
+//				Def def = var.get(i);
+//				String temnum = "%x"+AddExp_tree.varinum++;
+//				AddExp_tree.cal.add(temnum+" = "+"alloca i32");
+//				Symbol_table.table.add(new Symbol_base(def.name,temnum,false,"int",temnum));
+//			}
+//		}
+//		return null;
+//	}
 	 public String traverse_first() {
-		 test();
-		if(isconst) {
-			for(int i = 0;i < var.size();i++) {
-				Def def = var.get(i);
-				String temf = def.exp.traverse_cal();
-				Symbol_table.table.add(new Symbol_base(def.name,temf,true,"int",null));
-				//AddExp_tree.cal.add("%x"+temnum+" = "+"i32");
-			}
-//			for(int i = 0;i < var.size();i++) {
-//				Def def = var.get(i);
-//				def.exp.traverse_tree();
-//			}
-		}
-		else {
-			for(int i = 0;i < var.size();i++) {
-				Def def = var.get(i);
-				String temnum = "%x"+AddExp_tree.varinum++;
-				AddExp_tree.cal.add(temnum+" = "+"alloca i32");
-				Symbol_table.table.add(new Symbol_base(def.name,temnum,false,"int",temnum));
-			}
-//			for(int i = 0;i < var.size();i++) {
-//				Def def = var.get(i);
-//				def.exp.traverse_tree();
-//			}
-		}
-		return null;
-	}
-	 
+		 return  null;
+	 } 
 }

@@ -12,11 +12,16 @@ public class Block_tree extends Base_tree{
 		this.item = item;
 	}
 	 public String traverse_tree() {
+		 Symbol_table.nowdiv++;
 		 test();
-		for(int i = 0;i < item.size();i++) {
+		 for(int i = 0;i < item.size();i++) {
 				Base_tree tem = item.get(i);
 				tem.traverse_tree();
 			}
+		for(;(!Symbol_table.table.isEmpty())&&(Symbol_table.table.peek().div==Symbol_table.nowdiv);) {
+			Symbol_table.table.pop();
+		}
+		Symbol_table.nowdiv--;
 		return null;
 	}	
 	 public String traverse_first() {
