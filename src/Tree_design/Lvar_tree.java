@@ -23,9 +23,11 @@ public class Lvar_tree extends Base_tree{
 						}
 					   return Symbol_table.table.get(j).number;
 					}
+					else return Symbol_table.table.get(j).number;
 				}
 		}
-		// System.out.println(varname);
+		 Symbol_table.print();
+		 System.out.println("\n"+varname);
 		 System.exit(9);
 		 return null;
 	}
