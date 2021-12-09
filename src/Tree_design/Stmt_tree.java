@@ -93,7 +93,7 @@ public class Stmt_tree extends Base_tree{
 			 while(!br_co.isEmpty()) {
 				 Stmt_tree tStmt_tree = br_co.pop();
 				 if(tStmt_tree.type.equals("break")) AddExp_tree.cal.set(tStmt_tree.breaknumber,"br label %x"+(num-1));
-				 else AddExp_tree.cal.set(tStmt_tree.breaknumber,"br label %x"+(num-3));
+				 else AddExp_tree.cal.set(tStmt_tree.breaknumber,"br label %x"+(num-4));
 			 }
 			 //System.out.println(num);
 		 }
