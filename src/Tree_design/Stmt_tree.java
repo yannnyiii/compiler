@@ -81,7 +81,7 @@ public class Stmt_tree extends Base_tree{
 			 AddExp_tree.cal.add("x"+(num++)+":");
 			 InBase.traverse_tree();
 			 AddExp_tree.cal.add("x"+(num++)+":");
-			 LBase.traverse_tree();
+			 if(LBase!=null) LBase.traverse_tree();
 			 AddExp_tree.cal.add("br label %x"+(num-2));
 			 AddExp_tree.cal.add("x"+(num++)+":");
 			 AddExp_tree.cal.add("br label %x"+(num));

@@ -156,7 +156,7 @@ public class Gram {
 		else if(deal.Wordlist.get(position).getName().equals("const")||deal.Wordlist.get(position).getName().equals("int")){
 			tempBase_tree = Decl();
 		}
-		else if(deal.Wordlist.get(position).getType().equals("Ident")||deal.Wordlist.get(position).getName().equals("while")||deal.Wordlist.get(position).getName().equals("if")||deal.Wordlist.get(position).getName().equals("{")||deal.Wordlist.get(position).getName().equals("return")||deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")||deal.Wordlist.get(position).getName().equals("(")){
+		else if(deal.Wordlist.get(position).getType().equals("Ident")||deal.Wordlist.get(position).getType().equals(";")||deal.Wordlist.get(position).getName().equals("while")||deal.Wordlist.get(position).getName().equals("if")||deal.Wordlist.get(position).getName().equals("{")||deal.Wordlist.get(position).getName().equals("return")||deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")||deal.Wordlist.get(position).getName().equals("(")){
 			tempBase_tree = Stmt();
 		}
 		else {
@@ -340,6 +340,10 @@ public class Gram {
 			Base_tree tem = new Stmt_tree("while", L, null, In);
 			return tem;
 		}
+		else if(deal.Wordlist.get(position).getName().equals(";")){
+			position++;
+			return null;
+		}
 		else if(deal.Wordlist.get(position).getName().equals("return")){
 			position++;
 			Base_tree R = null;
@@ -518,7 +522,7 @@ public class Gram {
 			return L;
 		}
 		else {
-			testfalse(deal.Wordlist.get(position).getName()+" UnaryExp"+deal.Wordlist.get(position+1).getName());
+			testfalse(deal.Wordlist.get(position).getName()+" UnaryExp"+deal.Wordlist.get(position+1).getName()+deal.Wordlist.get(position+2).getName()+deal.Wordlist.get(position+4).getName()+deal.Wordlist.get(position+9).getName());
 			flag = false;
 			return null;
 		}
