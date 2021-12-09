@@ -5,6 +5,8 @@ public class LOrExp_tree extends Base_tree{
 	 public Base_tree LBase = null;
 	 public Base_tree RBase = null;
 	 public int ifnum = 0;
+	 public int whilenum = 0;
+	 public int whilenextnum = 0;
 	 public int nextnum = 0;
 	 public LOrExp_tree(String type,Base_tree LBase ,Base_tree RBase) {
 		super();

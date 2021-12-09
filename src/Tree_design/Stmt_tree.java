@@ -68,6 +68,26 @@ public class Stmt_tree extends Base_tree{
 			 AddExp_tree.cal.add("br label %x"+(num));
 			 AddExp_tree.cal.add("x"+(num++)+":");
 		 }
+		 else if(type.equals("while")){
+			 int num = AddExp_tree.varinum++;
+			 AddExp_tree.cal.add("br label %x"+(num));
+			 AddExp_tree.varinum+=3;
+			 if(InBase.getClass().toString().equals("class Tree_design.LOrExp_tree")) {
+				 LOrExp_tree tem_tree = (LOrExp_tree) InBase;
+				 tem_tree.ifnum = num+1;
+				 tem_tree.nextnum = num+2;
+				 InBase = tem_tree;
+			 }
+			 AddExp_tree.cal.add("x"+(num++)+":");
+			 InBase.traverse_tree();
+			 AddExp_tree.cal.add("x"+(num++)+":");
+			 LBase.traverse_tree();
+			 AddExp_tree.cal.add("br label %x"+(num-2));
+			 AddExp_tree.cal.add("x"+(num++)+":");
+			 AddExp_tree.cal.add("br label %x"+(num));
+			 AddExp_tree.cal.add("x"+(num++)+":");
+			 //System.out.println(num);
+		 }
 		 else {
 			 LBase.traverse_tree();
 		 }

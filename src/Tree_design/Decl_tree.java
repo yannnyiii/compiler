@@ -56,12 +56,12 @@ public class Decl_tree extends Base_tree{
 					String tempString = def.exp.traverse_tree();
 					int j;
 					for(j = Symbol_table.table.size()-1;j>=0;j--) {
-						if(Symbol_table.table.get(j).name.equals(def.name)&&!isconst) {		
+						if(Symbol_table.table.get(j).name.equals(def.name)&&!isconst) {
 							AddExp_tree.cal.add("store i32 "+tempString+" ,i32* "+Symbol_table.table.get(j).var_pointer);
 							Symbol_base tem = Symbol_table.table.get(j);
 							tem.number = "%x"+(AddExp_tree.varinum-1);
 							Symbol_table.table.set(j, tem);
-							return null;
+							break;
 						}
 					}if(j<0) {System.out.println("decltree"+def.exp.traverse_cal());System.exit(8);}
 				}
