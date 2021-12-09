@@ -52,7 +52,7 @@ public abstract class Base_tree {
     			tem = temRelExp_tree.LBase;
     		}
     	}
-    	if(tem.getClass().toString().equals("class Tree_design.AddExp_tree")||tem.getClass().toString().equals("class Tree_design.MulExp_tree")||tem.getClass().toString().equals("class Tree_design.UnaryExp_tree")||tem.getClass().toString().equals("class Tree_design.UnaryOp_tree")) {
+    	if(tem.getClass().toString().equals("class Tree_design.AddExp_tree")||tem.getClass().toString().equals("class Tree_design.Number_tree")||tem.getClass().toString().equals("class Tree_design.MulExp_tree")||tem.getClass().toString().equals("class Tree_design.UnaryExp_tree")||tem.getClass().toString().equals("class Tree_design.UnaryOp_tree")) {
     		return true;
     	}
     	return false;

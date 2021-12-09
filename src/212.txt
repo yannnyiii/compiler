@@ -1,15 +1,9 @@
-int main() {
-    int n = getint();
-    int i = 0, sum = 0;
-    while (i < n) {
-        if (i % 2 == 0) {
-            i = i + 1;
-            continue;
-        }
-        i = i + 1;
-        sum = sum + i;
-        putint(sum);
-        putch(10);
-    }
-    return 0;
+const int ascii_0 = 48;  
+int main() {     
+int sum = 0, c;    
+while (1) {         
+sum = sum+1;
+continue;
+}
+return 0;
 }

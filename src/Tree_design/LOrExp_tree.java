@@ -34,6 +34,11 @@ public class LOrExp_tree extends Base_tree{
 		 		tem_tree.originnum = temnextnum;
 		 		LBase = tem_tree;
 		 	}
+//		 	if(LBase!=null){System.out.println(LBase);}
+//		 	LAndExp_tree LBase1 = (LAndExp_tree) LBase;
+//		 	if(LBase1!=null){System.out.println(LBase1.LBase);}
+//		 	EqExp_tree LBase11 = (EqExp_tree) LBase1.LBase;
+//		 	if(LBase11!=null){System.out.println(LBase11.LBase);}
 			String lString = LBase.traverse_tree();
 			if(temnextnum!=0) {
 				if(Base_tree.ifexp(LBase)) {

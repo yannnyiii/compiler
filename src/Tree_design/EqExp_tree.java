@@ -12,6 +12,7 @@ public class EqExp_tree extends Base_tree{
 		this.RBase = RBase;
 	}
 	 public String traverse_tree() {
+		    //if(LBase.getClass().toString().equals("class Tree_design.Number_tree"))System.out.println(LBase.traverse_tree());
 			String lString = LBase.traverse_tree();
 			String rString = null;
 			if(RBase!=null) {rString = RBase.traverse_tree();}

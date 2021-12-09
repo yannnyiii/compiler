@@ -1,5 +1,7 @@
 package Tree_design;
 
+import java.util.regex.Pattern;
+
 public class LAndExp_tree extends Base_tree{
 	 public String type;
 	 public Base_tree LBase = null;
@@ -14,6 +16,10 @@ public class LAndExp_tree extends Base_tree{
 		this.LBase = LBase;
 		this.RBase = RBase;
 	}
+	 public static boolean isInteger(String str) {    
+		    Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");    
+		    return pattern.matcher(str).matches();    
+		  }  
 	 public String traverse_tree() {
 		 	int temnextnum = 0;
 		 	if(RBase!=null) {
@@ -26,6 +32,7 @@ public class LAndExp_tree extends Base_tree{
 		 		LBase = tem_tree;
 		 	}
 			String lString = LBase.traverse_tree();	
+			if(isInteger(lString)) return lString;
 			if(temnextnum!=0) {
 				if(Base_tree.ifexp(LBase)) {
 					AddExp_tree.cal.add("%y"+ynum++ +" = icmp ne i32 "+lString+", 0");	
