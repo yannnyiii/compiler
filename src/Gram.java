@@ -156,7 +156,7 @@ public class Gram {
 		else if(deal.Wordlist.get(position).getName().equals("const")||deal.Wordlist.get(position).getName().equals("int")){
 			tempBase_tree = Decl();
 		}
-		else if(deal.Wordlist.get(position).getType().equals("Ident")||deal.Wordlist.get(position).getType().equals(";")||deal.Wordlist.get(position).getName().equals("while")||deal.Wordlist.get(position).getName().equals("if")||deal.Wordlist.get(position).getName().equals("{")||deal.Wordlist.get(position).getName().equals("return")||deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")||deal.Wordlist.get(position).getName().equals("(")){
+		else if(deal.Wordlist.get(position).getType().equals("Ident")||deal.Wordlist.get(position).getName().equals("continue")||deal.Wordlist.get(position).getName().equals("break")||deal.Wordlist.get(position).getName().equals(";")||deal.Wordlist.get(position).getName().equals("while")||deal.Wordlist.get(position).getName().equals("if")||deal.Wordlist.get(position).getName().equals("{")||deal.Wordlist.get(position).getName().equals("return")||deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")||deal.Wordlist.get(position).getName().equals("(")){
 			tempBase_tree = Stmt();
 		}
 		else {
@@ -339,6 +339,28 @@ public class Gram {
 			Base_tree L = Stmt();
 			Base_tree tem = new Stmt_tree("while", L, null, In);
 			return tem;
+		}
+		else if(deal.Wordlist.get(position).getName().equals("break")){
+			Base_tree temBase_tree = new Stmt_tree("break", null, null);
+			position++;
+			if(!deal.Wordlist.get(position).getName().equals(";")){
+				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
+				flag = false;
+				return null;
+			}
+			position++;
+			return temBase_tree;
+		}
+		else if(deal.Wordlist.get(position).getName().equals("continue")){
+			Base_tree temBase_tree = new Stmt_tree("continue", null, null);
+			position++;
+			if(!deal.Wordlist.get(position).getName().equals(";")){
+				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
+				flag = false;
+				return null;
+			}
+			position++;
+			return temBase_tree;
 		}
 		else if(deal.Wordlist.get(position).getName().equals(";")){
 			position++;

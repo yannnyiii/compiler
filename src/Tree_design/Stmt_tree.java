@@ -1,5 +1,7 @@
 package Tree_design;
 
+import java.util.Stack;
+
 import Symbol.Symbol_base;
 import Symbol.Symbol_table;
 
@@ -9,6 +11,8 @@ public class Stmt_tree extends Base_tree{
 	 public Base_tree LBase = null;
 	 public Base_tree RBase = null;
 	 public Base_tree InBase = null;
+	 public int breaknumber = 0;
+	 public static Stack<Stmt_tree> br_co = new Stack<Stmt_tree>();	
 	 public Stmt_tree(String type,Base_tree LBase ,Base_tree RBase) {
 		super();
 		this.type = type;
@@ -86,7 +90,24 @@ public class Stmt_tree extends Base_tree{
 			 AddExp_tree.cal.add("x"+(num++)+":");
 			 AddExp_tree.cal.add("br label %x"+(num));
 			 AddExp_tree.cal.add("x"+(num++)+":");
+			 while(!br_co.isEmpty()) {
+				 Stmt_tree tStmt_tree = br_co.pop();
+				 if(tStmt_tree.type.equals("break")) AddExp_tree.cal.set(tStmt_tree.breaknumber,"br label %x"+(num-1));
+				 else AddExp_tree.cal.set(tStmt_tree.breaknumber,"br label %x"+(num-3));
+			 }
 			 //System.out.println(num);
+		 }
+		 else if(type.equals("break")){
+			 Stmt_tree temStmt_tree = new Stmt_tree("break",null,null);
+			 temStmt_tree.breaknumber = AddExp_tree.cal.size();
+			 AddExp_tree.cal.add("break");
+			 br_co.push(temStmt_tree);
+		 }
+		 else if(type.equals("continue")){
+			 Stmt_tree temStmt_tree = new Stmt_tree("continue",null,null);
+			 temStmt_tree.breaknumber = AddExp_tree.cal.size();
+			 AddExp_tree.cal.add("break");
+			 br_co.push(temStmt_tree);
 		 }
 		 else {
 			 LBase.traverse_tree();
