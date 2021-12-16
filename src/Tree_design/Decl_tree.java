@@ -73,8 +73,10 @@ public class Decl_tree extends Base_tree{
 					}
 					else {
 						int maxlength = def.initial.length;
-						Symbol_table.table.add(new Symbol_base(def.name,"@a"+shuzunum,false,"int",null,Symbol_table.nowdiv,def.dim,def.initial.length));
-						String temString = "@a"+shuzunum+" = dso_local global ["+maxlength+" x i32] [";
+						AddExp_tree.cal.add("@a"+shuzunum+" = alloca ["+maxlength+" x i32]");
+						Symbol_table.table.add(new Symbol_base(def.name,"@a"+shuzunum,false,"int",null,Symbol_table.nowdiv,def.dim,def.initial.length));	
+						AddExp_tree.cal.add("call void @memset(i32* "+"@a"+shuzunum+", i32 0, i32 "+def.initial.length+")");
+						//AddExp_tree.cal.add("%x"+AddExp_tree.varinum+++" = getelementptr i32, i32* %4, i32 3");
 						for(int k =0;k<def.initial.length;k++) {
 							if(!(def.initial[k].getClass().toString().equals("class Tree_design.Number_tree")&&((Number_tree)def.initial[k]).type.equals("0"))) {
 								int tem  = AddExp_tree.varinum++;
@@ -82,7 +84,7 @@ public class Decl_tree extends Base_tree{
 								AddExp_tree.cal.add("store i32 "+def.initial[k].traverse_tree()+", i32* "+"%x"+tem);
 							}	
 						}
-						shuzunum++;	
+						shuzunum++;
 						//System.out.println(temString);
 					}
 					//System.out.println(def.name);
