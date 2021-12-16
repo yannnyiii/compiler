@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.concurrent.locks.Condition;
 
+import Symbol.Shuzu;
 import Symbol.Symbol_base;
 import Symbol.Symbol_table;
 import Tree_design.*;
@@ -9,6 +9,7 @@ public class Gram {
 	public static boolean flag = true;
 	public static int position = 0;
 	public static String expression="";
+	public static ArrayList<Add_or_string_tree> initialList = new ArrayList<Add_or_string_tree>();
 	public static void testfalse(String s) {
 		System.out.println(s+" das");
 	}
@@ -20,8 +21,12 @@ public class Gram {
 		while(deal.Wordlist.get(position).getName().equals("const")||deal.Wordlist.get(position).getName().equals("int")&&!deal.Wordlist.get(position+1).getName().equals("main")) {
 			if(deal.Wordlist.get(position).getName().equals("const")){
 				position+=1;
-				Base_tree consTree = ConstDecl();
-				consTree.traverse_tree();
+				Decl_tree consTree = (Decl_tree)ConstDecl();
+				consTree.traverse_global();
+				for(int i=0;i<AddExp_tree.cal.size();i++) {
+					System.out.println(AddExp_tree.cal.get(i));
+				}
+				AddExp_tree.cal.clear();
 			}
 			else {
 				String typeString = Btype();
@@ -42,10 +47,22 @@ public class Gram {
 					Symbol_table.table.add(new Symbol_base(name, temString, false, "int", "@"+name, 0));
 					System.out.println("@"+name+" = dso_local global i32 "+temString);
 				}
+				else if(deal.Wordlist.get(position).getName().equals("[")){
+					position--;
+					Def temDef2 = VarDef();
+					Decl_tree varTree = new Decl_tree("int", false, new ArrayList<Def>());
+					varTree.var.add(temDef2);
+					varTree.traverse_global();
+					for(int i=0;i<AddExp_tree.cal.size();i++) {
+						System.out.println(AddExp_tree.cal.get(i));
+					}
+					AddExp_tree.cal.clear();
+				}
 				else {
 					Symbol_table.table.add(new Symbol_base(name,"0", false, "int", "@"+name, 0));
 					System.out.println("@"+name+" = dso_local global i32 "+0);
-				}		
+				}
+				//System.out.println(deal.Wordlist.get(position-1).getName());
 				while(deal.Wordlist.get(position).getName().equals(",")) {
 					position++;
 					name = deal.Wordlist.get(position).getName();
@@ -53,8 +70,19 @@ public class Gram {
 						position+=2;
 						Base_tree addBase_tree = AddExp();
 						String temString = addBase_tree.traverse_cal();
+						
 						Symbol_table.table.add(new Symbol_base(name, temString, false, "int", "@"+name, 0));
 						System.out.println("@"+name+" = dso_local global i32 "+temString);
+					}
+					else if(deal.Wordlist.get(position+1).getName().equals("[")){
+						Def temDef2 = VarDef();
+						Decl_tree varTree = new Decl_tree("int", false, new ArrayList<Def>());
+						varTree.var.add(temDef2);
+						varTree.traverse_global();
+						for(int i=0;i<AddExp_tree.cal.size();i++) {
+							System.out.println(AddExp_tree.cal.get(i));
+						}
+						AddExp_tree.cal.clear();
 					}
 					else {
 						position++;
@@ -195,38 +223,74 @@ public class Gram {
 			flag = false;
 			return null;
 		}
-		String name = deal.Wordlist.get(position).getName();
-		position++;
-		Def temDef;
 		ArrayList<Def> var = new ArrayList<Def>();
-		if(deal.Wordlist.get(position).getName().equals("=")){
-			position++;
-			temDef = new Def(name, AddExp());
-		}
-		else {
-			temDef = new Def(name, null);
-		}		
-		var.add(temDef);
+		Def testDef = VarDef();
+		
+//		if(deal.Wordlist.get(position).getName().equals("=")){
+//			position++;
+//			temDef = new Def(name, AddExp());
+//		}
+//		else {
+//			temDef = new Def(name, null);
+//		}		
+		var.add(testDef);
 		while(deal.Wordlist.get(position).getName().equals(",")) {
 			position++;
-			if(deal.Wordlist.get(position+1).getName().equals("=")){
-				name = deal.Wordlist.get(position).getName();
-				position+=2;
-				temDef = new Def(name, AddExp());
-			}
-			else {
-				temDef = new Def(deal.Wordlist.get(position).getName(), null);
-				position++;
-			}		
-			var.add(temDef);
+			testDef = VarDef();
+			var.add(testDef);
 		}
 		if(!deal.Wordlist.get(position).getName().equals(";")){
-			testfalse(deal.Wordlist.get(position).getName()+"var2Decl");
+			testfalse(deal.Wordlist.get(position).getName()+deal.Wordlist.get(position+1).getName()+deal.Wordlist.get(position+2).getName()+"var;;;Decl");
 			flag = false;
 			return null;
 		}
 		position++;
 		return new Decl_tree(typeString,false,var);
+	}
+	public static Def VarDef(){
+		String name = deal.Wordlist.get(position).getName();
+		position++;
+		Def temDef = null;
+		if(deal.Wordlist.get(position).getName().equals("=")){
+			position++;
+			temDef = new Def(name, AddExp());
+			return temDef;
+		}
+		ArrayList<String> dim = new ArrayList<String>();
+		while(deal.Wordlist.get(position).getName().equals("[")){
+			position++;
+			Base_tree temAddExp_tree = AddExp();
+			if(!deal.Wordlist.get(position).getName().equals("]")){
+				testfalse(deal.Wordlist.get(position).getName()+"[[[");
+				flag = false;
+				return null;
+			}
+			position++;
+			String temString = temAddExp_tree.traverse_cal();
+			dim.add(temString);
+		}
+		if(!deal.Wordlist.get(position).getName().equals("=")){
+			int length = dim.size();
+			int a[] = new int[length];
+			for(int i = 0;i<length;i++) {
+				a[i] = Integer.parseInt(dim.get(i));
+			}
+			temDef = new Def(name, a, Shuzu.deal(null, a), true);
+			initialList.clear();
+			return temDef;
+		}
+		else {
+		position++;
+		int length = dim.size();
+		int a[] = new int[length];
+		for(int i = 0;i<length;i++) {
+			a[i] = Integer.parseInt(dim.get(i));
+		}
+		ConstInitVal();
+		temDef = new Def(name, a, Shuzu.deal(initialList, a), true);
+		initialList.clear();
+		return temDef;
+		}
 	}
 	public static Base_tree ConstDecl(){
 		if(!flag) return null;
@@ -239,29 +303,14 @@ public class Gram {
 			flag = false;
 			return null;
 		}
-		String name = deal.Wordlist.get(position).getName();
-		position++;
-		if(!deal.Wordlist.get(position).getName().equals("=")){
-			testfalse(deal.Wordlist.get(position).getName()+"Decl");
-			flag = false;
-			return null;
-		}
-		position++;
-		Def temDef = new Def(name, AddExp());
+		String name;
 		ArrayList<Def> var = new ArrayList<Def>();
-		var.add(temDef);
+		Def testDef = ConstDef();	
+		var.add(testDef);
 		while(deal.Wordlist.get(position).getName().equals(",")) {
 			position++;
-			name = deal.Wordlist.get(position).getName();
-			position++;
-			if(!deal.Wordlist.get(position).getName().equals("=")){
-				testfalse(deal.Wordlist.get(position).getName()+"Decl"+deal.Wordlist.get(position+1).getName());
-				flag = false;
-				return null;
-			}
-			position++;
-			temDef = new Def(name, AddExp());
-			var.add(temDef);
+			testDef = ConstDef();	
+			var.add(testDef);
 		}
 		if(!deal.Wordlist.get(position).getName().equals(";")){
 			testfalse(deal.Wordlist.get(position).getName()+"Decl"+deal.Wordlist.get(position+1).getName()+deal.Wordlist.get(position+2).getName()+deal.Wordlist.get(position+3).getName());
@@ -270,6 +319,73 @@ public class Gram {
 		}
 		position++;
 		return new Decl_tree(typeString,true,var);
+	}
+	public static Def ConstDef(){
+		String name = deal.Wordlist.get(position).getName();
+		position++;
+		Def temDef = null;
+		if(deal.Wordlist.get(position).getName().equals("=")){
+			position++;
+			temDef = new Def(name, AddExp());
+			return temDef;
+		}
+		ArrayList<String> dim = new ArrayList<String>();
+		while(deal.Wordlist.get(position).getName().equals("[")){
+			position++;
+			Base_tree temAddExp_tree = AddExp();
+			if(!deal.Wordlist.get(position).getName().equals("]")){
+				testfalse(deal.Wordlist.get(position).getName()+"[[[");
+				flag = false;
+				return null;
+			}
+			position++;
+			String temString = temAddExp_tree.traverse_cal();
+			dim.add(temString);
+		}
+		if(!deal.Wordlist.get(position).getName().equals("=")){
+			testfalse(deal.Wordlist.get(position).getName()+"[[[===");
+			flag = false;
+			return null;
+		}
+		position++;
+		int length = dim.size();
+		int a[] = new int[length];
+		for(int i = 0;i<length;i++) {
+			a[i] = Integer.parseInt(dim.get(i));
+		}
+		ConstInitVal();
+		temDef = new Def(name, a, Shuzu.deal(initialList, a), true);
+		initialList.clear();
+		return temDef;
+	}
+	public static void ConstInitVal() {
+		if(deal.Wordlist.get(position).getType().equals("Number")||deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")||deal.Wordlist.get(position).getType().equals("Ident")){
+			Base_tree temAddExp_tree = AddExp();
+			initialList.add(new Add_or_string_tree(temAddExp_tree, null, true));
+			return;
+		}
+		else if(deal.Wordlist.get(position).getName().equals("{")){
+			initialList.add(new Add_or_string_tree(null, "{", false));
+			position++;
+			if(deal.Wordlist.get(position).getName().equals("{")||deal.Wordlist.get(position).getType().equals("Number")||deal.Wordlist.get(position).getName().equals("+")||deal.Wordlist.get(position).getName().equals("-")||deal.Wordlist.get(position).getType().equals("Ident")) {
+				ConstInitVal();
+				while(deal.Wordlist.get(position).getName().equals(",")){
+					position++;
+					ConstInitVal();
+				}
+			}
+			if(!deal.Wordlist.get(position).getName().equals("}")){
+				testfalse(deal.Wordlist.get(position).getName()+" not}");
+				flag = false;
+				return ;
+			}
+			initialList.add(new Add_or_string_tree(null, "}", false));
+			position++;
+			return;
+		}
+			testfalse(deal.Wordlist.get(position).getName()+"{}");
+			flag = false;
+			return ;
 	}
 	public static String Btype() {
 		if(!deal.Wordlist.get(position).getName().equals("int")){
@@ -285,19 +401,53 @@ public class Gram {
 		while(deal.Wordlist.get(position).getName().equals(" ")) {
 			position++;
 		}
-		if(deal.Wordlist.get(position).getType().equals("Ident")&&deal.Wordlist.get(position+1).getName().equals("=")){
-			String typeString = deal.Wordlist.get(position).getName();
-			position++;position++;
-			Base_tree R = Exp();
-			Base_tree L = new Lvar_tree(typeString,true);
-			Base_tree tem = new Stmt_tree("assign", L, R);
-			if(!deal.Wordlist.get(position).getName().equals(";")){
-				testfalse(deal.Wordlist.get(position).getName() +" stmt;");
-				flag = false;
-				return null;
+		if(deal.Wordlist.get(position).getType().equals("Ident")&&(deal.Wordlist.get(position+1).getName().equals("=")||deal.Wordlist.get(position+1).getName().equals("["))){
+			if(deal.Wordlist.get(position+1).getName().equals("=")){
+				String typeString = deal.Wordlist.get(position).getName();
+				position++;position++;
+				Base_tree R = Exp();
+				Base_tree L = new Lvar_tree(typeString,true);
+				Base_tree tem = new Stmt_tree("assign", L, R);
+				if(!deal.Wordlist.get(position).getName().equals(";")){
+					testfalse(deal.Wordlist.get(position).getName() +" stmt;");
+					flag = false;
+					return null;
+				}
+				position++;
+				return tem;
 			}
-			position++;
-			return tem;
+			else {
+				String typeString = deal.Wordlist.get(position).getName();
+				position++;
+				Lvar_tree L = new Lvar_tree(typeString,true);
+				L.isshuzu = true;
+				L.expBase_tree = new ArrayList<Base_tree>();
+				while(deal.Wordlist.get(position).getName().equals("[")) {
+					position++;
+					L.expBase_tree.add(AddExp());
+					if(!deal.Wordlist.get(position).getName().equals("]")){
+						testfalse(deal.Wordlist.get(position).getName() +" stmt@[];");
+						flag = false;
+						return null;
+					}
+					position++;
+				}
+				if(!deal.Wordlist.get(position).getName().equals("=")){
+					testfalse(deal.Wordlist.get(position).getName() +" stmt;;@@@@");
+					flag = false;
+					return null;
+				}
+				position++;
+				Base_tree R = Exp();
+				Base_tree tem = new Stmt_tree("assign", L, R);
+				if(!deal.Wordlist.get(position).getName().equals(";")){
+					testfalse(deal.Wordlist.get(position).getName() +" stmt;;@@@@");
+					flag = false;
+					return null;
+				}
+				position++;
+				return tem;
+			}
 		}
 		else if(deal.Wordlist.get(position).getName().equals("if")){
 			if(!deal.Wordlist.get(position+1).getName().equals("(")){
@@ -632,9 +782,21 @@ public class Gram {
 		}
 		if(deal.Wordlist.get(position).getType().equals("Ident")) {
 			expression+=deal.Wordlist.get(position).getName();
-			Base_tree L = new Lvar_tree(deal.Wordlist.get(position).getName(),false);
+			Lvar_tree L = new Lvar_tree(deal.Wordlist.get(position).getName(),false);
+			L.isshuzu = true;
+			L.expBase_tree = new ArrayList<Base_tree>();
 			position++;
-			return  L;
+			while(deal.Wordlist.get(position).getName().equals("[")) {
+				position++;
+				L.expBase_tree.add(AddExp());
+				if(!deal.Wordlist.get(position).getName().equals("]")){
+					testfalse(deal.Wordlist.get(position).getName() +" primarystmt@[];");
+					flag = false;
+					return null;
+				}
+				position++;
+			}
+			return L;
 		}
 		if(!deal.Wordlist.get(position).getName().equals("(")){
 			testfalse(deal.Wordlist.get(position).getName()+" pri(");

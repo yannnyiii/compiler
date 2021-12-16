@@ -171,6 +171,16 @@ public class deal {
 			Wordlist.add(temWord);
 			return;
 		}
+		if(temchar=='[') {
+			temWord = new Word("[", "[", test.line);
+			Wordlist.add(temWord);
+			return;
+		}
+		if(temchar==']') {
+			temWord = new Word("]", "]", test.line);
+			Wordlist.add(temWord);
+			return;
+		}
 		System.out.println("Err");//System.out.println(temchar);
 		test.esc = true;
 		return;
