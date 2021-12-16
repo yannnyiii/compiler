@@ -74,6 +74,8 @@ public class Decl_tree extends Base_tree{
 					else {
 						int maxlength = def.initial.length;
 						AddExp_tree.cal.add("%a"+shuzunum+" = alloca ["+maxlength+" x i32]");
+						shuzunum++;
+						AddExp_tree.cal.add("%a"+shuzunum+" = getelementptr ["+maxlength+" x i32], ["+maxlength+" x i32]* "+"%a"+shuzunum+", i32 0, i32 0");
 						Symbol_table.table.add(new Symbol_base(def.name,"%a"+shuzunum,false,"int",null,Symbol_table.nowdiv,def.dim,def.initial.length));	
 						AddExp_tree.cal.add("call void @memset(i32* "+"%a"+shuzunum+", i32 0, i32 "+def.initial.length+")");
 						//AddExp_tree.cal.add("%x"+AddExp_tree.varinum+++" = getelementptr i32, i32* %4, i32 3");
